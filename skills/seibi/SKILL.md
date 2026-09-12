@@ -1,5 +1,6 @@
 ---
 name: seibi
+license: MIT
 description: >-
   Analyze recurring, interacting, or system-level behaviour using evidence,
   feedback loops, delays, competing hypotheses, leverage points, and measured

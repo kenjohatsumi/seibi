@@ -28,7 +28,7 @@ Seibi guides an agent to:
 - avoid unauthorized production changes and unnecessary data collection.
 
 The runtime method is intentionally compact. Optional schemas, ledgers, and
-archetypes live under [`references/`](references/).
+archetypes live under [`references/`](skills/seibi/references/).
 
 ## Activation
 
@@ -65,20 +65,22 @@ or sensitive payloads without explicit authorization and safeguards.
 
 ```text
 seibi/
-├── SKILL.md
 ├── README.md
 ├── LICENSE
 ├── VERSION
 ├── CHANGELOG.md
 ├── VALIDATION.md
 ├── FORWARD_TESTS.md
-└── references/
-    ├── machine-readable-model.md
-    ├── system-archetypes.md
-    └── templates.md
+└── skills/
+    └── seibi/
+        ├── SKILL.md
+        └── references/
+            ├── machine-readable-model.md
+            ├── system-archetypes.md
+            └── templates.md
 ```
 
-The runtime entry point is [`SKILL.md`](SKILL.md).
+The runtime entry point is [`SKILL.md`](skills/seibi/SKILL.md).
 
 ## Validation
 
