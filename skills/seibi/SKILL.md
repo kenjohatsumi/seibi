@@ -4,20 +4,24 @@ license: MIT
 description: >-
   Analyze recurring, interacting, or system-level behaviour using evidence,
   feedback loops, delays, competing hypotheses, leverage points, and measured
-  experiments. Use when outcomes emerge from interactions across components or
-  recur over time. Do not activate for isolated bugs, one-off incidents, simple
-  dashboard reading, or routine optimization unless there is evidence of wider
-  system behaviour.
+  experiments. Use when outcomes emerge from component interaction or recur
+  over time. Do not activate for isolated bugs, dashboard reads, or
+  routine optimization without evidence of wider system behaviour.
 ---
 
 # Seibi
 
 **Understand the system. Steward its behaviour. Improve it with evidence.**
 
-Seibi is a practical agent methodology inspired by systems thinking and system
-dynamics. It helps an agent understand recurring or interacting behaviour,
-identify plausible causal structure and leverage points, and recommend measured
-improvements without confusing correlation with causation.
+Seibi is a practical, evidence-driven methodology for understanding and
+improving recurring, interacting, or system-level behaviour. It helps an agent
+understand how system structure and interactions produce that behaviour,
+identify plausible causal mechanisms and leverage points, and recommend
+measured improvements without confusing correlation with causation.
+
+Prefer the simplest explanation supported by evidence, but do not assume
+behaviour can be localized to one component: some behaviour arises from how
+components interact.
 
 It is not a formal standard.
 
@@ -26,10 +30,11 @@ It is not a formal standard.
 Use Seibi when at least one of these is true:
 
 - the same failure, bottleneck, backlog, quality problem, or operational pattern recurs;
-- several components, agents, teams, queues, incentives, or resources interact;
+- several components, agents, teams, queues, incentives, or resources interact
+  and materially affect the outcome;
 - fixing one metric appears to worsen another;
 - behaviour oscillates, compounds, overshoots, or changes after a delay;
-- local fixes repeatedly fail or require continuing manual intervention;
+- local fixes repeatedly fail or require manual intervention;
 - the user explicitly asks for system dynamics, feedback loops, leverage points,
   second-order effects, or a system-level explanation.
 
@@ -37,11 +42,10 @@ Do **not** activate Seibi merely because there is:
 
 - one isolated bug or incident with an obvious local cause;
 - a request to read a dashboard or summarize metrics;
-- routine debugging that can be resolved directly;
-- a simple configuration change;
-- ordinary performance tuning with no evidence of interacting system behaviour.
+- routine debugging or configuration change that can be resolved directly;
+- multiple components existing without evidence their interaction affects the outcome.
 
-If uncertain, use the smallest adequate method first. Escalate to Seibi when the
+If uncertain, use the smallest adequate method first; escalate only when
 evidence suggests a system-level pattern.
 
 ## Default authority and permissions
@@ -101,7 +105,8 @@ Do not optimize a component before defining the system outcome.
 Use available evidence to establish:
 
 - baseline behaviour;
-- important accumulations or **stocks**;
+- important accumulations or **stocks**, including where accumulated state may
+  alter later behaviour;
 - inflows and outflows;
 - material events or changes;
 - evidence gaps.
@@ -109,17 +114,16 @@ Use available evidence to establish:
 Examples of stocks include backlog, unresolved incidents, technical debt,
 pending approvals, accumulated cost, or rework.
 
-Do not create heavyweight observability merely because Seibi is active.
+Do not create heavyweight observability because Seibi is active.
 
 ### 3. Model
 
-Describe only the structure needed to explain the question:
+Describe only the structure and interaction needed to explain the question:
 
-- important relationships;
-- reinforcing loops that amplify change;
-- balancing loops that resist change;
-- meaningful delays;
-- current constraints.
+- important relationships and interactions;
+- reinforcing and balancing feedback;
+- meaningful delays and state dependence;
+- constraints, nonlinearities, or thresholds that materially change behaviour.
 
 Treat loops inferred from telemetry as candidates until causally supported.
 
@@ -128,9 +132,14 @@ Treat loops inferred from telemetry as candidates until causally supported.
 For each material explanation, record:
 
 - the leading hypothesis;
-- at least one plausible alternative when one exists;
+- at least one plausible alternative, if any;
 - evidence supporting and contradicting each;
 - what observation would weaken or falsify the leading hypothesis.
+
+Include an interaction-level hypothesis when component behaviour could
+combine to produce the outcome. "Emergent" is not itself a hypothesis — bad:
+*H1: the behaviour is emergent.* Good: *H1: retries, queue growth, and
+delayed scaling amplify arrival past a threshold.*
 
 Temporal proximity and correlation generate hypotheses; they do not prove causes.
 
@@ -140,16 +149,16 @@ Before recommending a material intervention, state what the model predicts:
 
 - which outcome should change;
 - direction of change;
-- approximate magnitude if defensible;
+- approximate magnitude, threshold, or regime change if defensible;
 - expected delay or observation window;
 - guardrails that should remain acceptable.
 
-A model that cannot make a useful falsifiable prediction should retain low causal confidence.
+A model that cannot make a useful falsifiable prediction retains low causal confidence.
 
 ### 6. Find leverage
 
-Prefer interventions that alter the structure producing the behaviour rather than
-repeatedly treating symptoms.
+Prefer interventions that change the producing structure or interaction, not
+merely its symptoms.
 
 Consider, from lower to higher leverage:
 
@@ -164,7 +173,7 @@ Consider, from lower to higher leverage:
 9. system structure;
 10. underlying assumptions or paradigms.
 
-Higher leverage is not automatically better. Choose the least risky practical
+Higher leverage is not automatically better. Choose the least risky
 intervention that addresses the supported mechanism.
 
 ### 7. Recommend or test
@@ -191,11 +200,11 @@ stop if p95 latency worsens by >20% from baseline;
 stop if primary success rate falls below 98%;
 ```
 
-When a meaningful numerical threshold cannot be defined, state the qualitative
-stop condition and why it cannot be quantified safely.
+When a numerical threshold cannot be defined, state the qualitative stop
+condition and why it cannot be quantified safely.
 
-Avoid changing several causal variables at once when a narrower experiment can
-distinguish hypotheses.
+Avoid changing several interacting variables at once when a narrower
+experiment can distinguish hypotheses.
 
 ### 8. Measure and update
 
@@ -286,51 +295,43 @@ If evidence is inadequate, a valid conclusion is:
 
 ## End-to-end example
 
-**Input:**  
-"Every weekday around 09:00 our support-agent queue spikes. We increased workers
-from 8 to 12, but p95 completion time still rises and operators keep manually
+**Input:**
+"Every weekday around 09:00 our support-agent queue spikes. We increased
+workers from 8 to 12, but p95 completion time still rises and operators keep
 restarting workers. Work out what is happening and tell me what to change."
 
-**Boundary and evidence:**  
-Scope the queue, workers, retrying clients, tool dependency, and operator
-restarts. Existing metrics show queue depth, completion latency, worker count,
-request rate, retry rate, and deployment events. Tool latency is available in
-existing traces. No new instrumentation is required initially.
+**Boundary and evidence:**
+Scope the queue, workers, retrying clients, and the downstream tool; existing
+metrics and traces suffice.
 
-**Analysis:**  
-The backlog is the key stock. Arrival and completion are its principal flows.
-At 09:00, primary arrival rate rises 35%, but total request rate rises 80%.
-Timeouts rise first, followed about 20 seconds later by retries. Worker
-utilization increases, queue wait rises, and more requests time out.
+**Analysis:**
+Backlog is the key stock. At 09:00, primary arrival rises 35% but total
+request rises 80%. Timeouts rise first, retries follow ~20 seconds later, and
+utilization and queue wait climb together — consistent with interacting
+components, not one failing part.
 
 **Competing hypotheses:**
 
-- H1: retry amplification forms a reinforcing loop:
-  queue wait → timeout → retry → arrival rate → queue wait.
-- H2: the downstream tool becomes slow at 09:00 and independently causes both
-  latency and retries.
+- H1 (interaction-level): retry amplification forms a reinforcing loop —
+  queue wait → timeout → retry → arrival rate → queue wait — crossing a
+  threshold at high utilization.
+- H2: the downstream tool independently slows at 09:00.
 - H3: twelve workers introduce lock contention.
 
-Existing traces weaken H2 because tool latency remains near baseline before
-queue wait rises. H3 remains plausible.
+Traces weaken H2: tool latency stays near baseline before queue wait rises;
+H3 remains plausible.
 
-**Prediction:**  
-If H1 is materially driving the spike, reducing retry traffic for a small
-authorized traffic slice while leaving primary load unchanged should reduce
-queue growth within roughly 1–2 minutes and improve p95 latency shortly after.
-If queue growth is unchanged, H1 weakens.
+**Prediction:**
+If H1 dominates, cutting retry traffic on a small authorized slice while
+holding load steady should reduce queue growth within 1–2 minutes;
+unchanged growth would weaken H1.
 
-**Experiment recommendation:**  
-Do not change production automatically. Request authorization for a bounded
-retry-policy experiment on 10% of traffic. Keep primary success rate and error
-rate as guardrails; stop and roll back if either materially worsens.
-
-**Final recommendation:**  
-Do not add more workers yet. The evidence supports testing retry amplification
-before another capacity change. If the prediction matches, the higher-leverage
-fix is likely stronger backpressure/retry rules rather than additional worker
-capacity. Confidence: MEDIUM until the experiment distinguishes H1 from H3.
-
+**Experiment and recommendation:**
+Request authorization for a bounded retry experiment on 10% of traffic, with
+success and error rate as guardrails; roll back if either worsens. Do not add
+workers yet — test retries first; if confirmed, backpressure or retry rules
+are the higher-leverage fix. Confidence: MEDIUM until H1 is distinguished
+from H3.
 
 ## Optional references
 
@@ -339,16 +340,20 @@ Load these only when needed:
 - [`references/templates.md`](references/templates.md) — evidence, hypothesis,
   prediction, intervention, and instrumentation templates.
 - [`references/machine-readable-model.md`](references/machine-readable-model.md) —
-  optional persistent YAML system model for repeated or multi-agent analysis.
-- [`references/system-archetypes.md`](references/system-archetypes.md) — optional
+  persistent YAML system model for repeated or multi-agent analysis.
+- [`references/system-archetypes.md`](references/system-archetypes.md) —
   archetypes for generating hypotheses, never for proving them.
 
 ## References
 
-Seibi is a practical methodology inspired by, rather than equivalent to, the
+Seibi is a practical methodology inspired by, not equivalent to, the
 established fields below:
 
-- Donella H. Meadows, *Thinking in Systems: A Primer*.
+- Donella H. Meadows, *Thinking in Systems: A Primer* — structure, stocks,
+  flows, feedback, delays, and leverage.
+- Klaus Mainzer, *Thinking in Complexity: The Computational Dynamics of
+  Matter, Mind, and Mankind* — nonlinear interaction, emergence,
+  self-organization, and state dependence.
 - Jay W. Forrester, work on system dynamics.
 - General scientific practices of competing hypotheses, falsification,
   controlled experimentation, and prediction.

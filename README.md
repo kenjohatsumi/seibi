@@ -71,6 +71,7 @@ seibi/
 ├── CHANGELOG.md
 ├── VALIDATION.md
 ├── FORWARD_TESTS.md
+├── RETUNING_EVALUATION.md
 └── skills/
     └── seibi/
         ├── SKILL.md
@@ -92,9 +93,14 @@ are **not evidence of real-world deployment performance**.
 prompts were processed using the v0.1 methodology and the resulting analyses
 were reviewed against the intended behaviour.
 
+`RETUNING_EVALUATION.md` contains a quantitative before/after comparison of
+v0.1.0 and v0.2.0 across five forward-test scenarios, used to check that the
+v0.2.0 conceptual retuning produced a measurable improvement on its target
+reasoning without regressing on negative controls.
+
 ## Version
 
-Current release candidate: **v0.1.0**
+Current release: **v0.2.0**
 
 See [`CHANGELOG.md`](CHANGELOG.md).
 
@@ -103,6 +109,8 @@ See [`CHANGELOG.md`](CHANGELOG.md).
 Seibi is a practical methodology inspired by:
 
 - Donella H. Meadows, *Thinking in Systems: A Primer*;
+- Klaus Mainzer, *Thinking in Complexity: The Computational Dynamics of
+  Matter, Mind, and Mankind*;
 - Jay W. Forrester and the field of system dynamics;
 - scientific practices involving competing hypotheses, falsification,
   prediction, and controlled experimentation;

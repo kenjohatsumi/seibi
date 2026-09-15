@@ -19,5 +19,20 @@ and starving alternatives.
 ## Escalation
 Two actors react to each other's state, creating a reinforcing competitive loop.
 
+## Emergent Interaction
+Individually acceptable component behaviour combines through coupling, feedback,
+delay, shared constraints, accumulated state, or thresholds to produce an
+undesirable system-level pattern.
+
+Diagnostic questions:
+- Does the failure disappear when components are tested independently?
+- Which interactions are necessary for the behaviour?
+- Does accumulated state alter the result?
+- Is there a threshold beyond which feedback changes sharply?
+- Could the pattern persist without any single defective component?
+
+Use this archetype to generate hypotheses, never as evidence that emergence
+has occurred.
+
 When an archetype seems to fit, still produce competing hypotheses and a
 falsifiable prediction.
