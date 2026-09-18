@@ -44,3 +44,19 @@ This is a forward specification test and adversarial rubric review, not empirica
 evidence from deployment across independent agent runtimes. Public release should
 still include pilot use on representative real tasks and review of false-positive
 activation, recommendation quality, and permission compliance.
+
+## Constraint-focus validation — candidate v0.3.0
+
+| # | Scenario | Expected specification behaviour | Result |
+|---|---|---|---|
+| CF-1 | Queue before X, downstream Y limits final output | Treat queue as evidence; test X; prefer Y if it governs | PASS |
+| CF-2 | 50%-utilised A feeds saturated B | Do not equate utilisation with system productivity; avoid extra A work | PASS |
+| CF-3 | Confirmed constraint loses 20–30% capacity to avoidable work | Recover useful capacity before unnecessary expansion | PASS |
+| CF-4 | Upstream release exceeds the governing constraint | Align release, priorities, batches, or WIP when evidence supports it | PASS |
+| CF-5 | A improves from 40 to 90 while B remains at 70 | Reassess and move attention to B | PASS |
+| CF-6 | X improves but the system outcome does not | Classify the prediction and weaken X's constraint hypothesis | PASS |
+| CF-7 | Ordinary system optimisation needs no constraint diagnosis | Do not force constraint terminology or workflow | PASS |
+
+These are specification-level forward checks applied to the candidate runtime,
+not independent deployment evidence. Existing activation, causal, telemetry,
+privacy, permission, and failed-prediction checks remain PASS.

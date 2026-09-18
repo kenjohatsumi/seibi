@@ -1,8 +1,8 @@
-# Seibi v0.1 Forward Tests
+# Seibi Forward Tests
 
-These are recorded forward tests of the v0.1 instructions using realistic
-prompts. Unlike `VALIDATION.md`, these tests record the analysis that the method
-actually produced for each prompt.
+These are recorded forward tests of Seibi instructions using realistic prompts.
+Unlike `VALIDATION.md`, they record the analysis that the method produced for
+each prompt.
 
 They are still limited: they are not independent production deployments, and
 they do not prove general effectiveness.
@@ -144,6 +144,79 @@ Why: it activated appropriately, resisted causal overclaiming, did not recommend
 another capacity increase, used competing hypotheses, and made the experiment
 conditional on authorization with numerical stop conditions.
 
+## Constraint-focus forward tests — candidate v0.3.0
+
+These fixed cases were evaluated against the candidate runtime instructions.
+They are instruction-level forward tests, not independent production
+deployments or proof of general effectiveness.
+
+### CF-1 — Apparent bottleneck is not governing
+
+**Case:** A large queue forms before X, but downstream Y limits final output;
+improving X would only increase intermediate inventory.
+
+**Result: PASS.** The runtime treats the queue as evidence, asks whether X
+improvement changes the whole-system outcome, and keeps Y as the stronger
+candidate rather than assuming queue size identifies the constraint.
+
+### CF-2 — Local utilisation trap
+
+**Case:** A is 50% utilised, saturated B governs flow, and raising A to 90%
+would accumulate more work before B.
+
+**Result: PASS.** Idle A capacity is not treated as waste; increased A activity
+is deprioritised because it does not improve the system outcome and may grow
+backlog.
+
+### CF-3 — Recover before capacity addition
+
+**Case:** A confirmed constraint loses 20–30% of its time to avoidable rework,
+invalid work, interruptions, or poor prioritisation.
+
+**Result: PASS.** The runtime first considers recovering useful existing
+capacity, while leaving additional capacity available if the remaining limit
+still justifies it.
+
+### CF-4 — Align non-constraints
+
+**Case:** Upstream capacity exceeds the governing constraint; continuous release
+makes work-in-progress and waiting grow without increasing throughput.
+
+**Result: PASS.** Reduced release, changed priorities, smaller batches, or less
+work-in-progress may be recommended when evidence shows they improve flow.
+
+### CF-5 — Constraint migration
+
+**Case:** A=40, B=70, C=100; after A rises to 90, B becomes the limit.
+
+**Result: PASS.** The runtime requires reassessment after a successful
+constraint change and does not preserve A as the optimisation target by habit.
+
+### CF-6 — Constraint hypothesis falsified
+
+**Case:** X is improved in a bounded intervention, but the system outcome does
+not change.
+
+**Result: PASS.** The result is classified as MATCH/PARTIAL/MISS/INCONCLUSIVE
+as evidence supports, and the X hypothesis is weakened rather than rationalised.
+
+### CF-7 — Negative control
+
+**Case:** An ordinary system-level optimisation has no meaningful constraint
+question and is adequately explained by existing Seibi feedback/delay/
+interaction reasoning.
+
+**Result: PASS.** Constraint terminology and recover/align/add-capacity logic
+are not forced; the existing method remains sufficient.
+
+### Regression check
+
+The existing five recorded tests remain PASS: isolated bug non-activation,
+queue/retry amplification, minimum telemetry, component metric versus system
+outcome, and failed-prediction updating. No new instruction authorises
+production changes, instrumentation, disruptive experiments, or sensitive data
+collection.
+
 ---
 
 ## Test 3 — Missing telemetry without instrumentation creep
@@ -276,6 +349,8 @@ or immediately recommending another intervention.
 | 3 | Minimum instrumentation + privacy + permissions | PASS |
 | 4 | System outcome over component metric | PASS |
 | 5 | Learn from failed prediction | PASS |
+| CF-1–CF-7 | Constraint focus and migration | PASS |
 
-These outputs support the **v0.1 release-candidate behaviour**, but they should
-not be described as evidence of independent production effectiveness.
+The five baseline outputs and seven constraint-focus checks support the recorded
+instruction behaviour, but are not evidence of independent production
+effectiveness.

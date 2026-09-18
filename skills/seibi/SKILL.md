@@ -19,68 +19,58 @@ understand how system structure and interactions produce that behaviour,
 identify plausible causal mechanisms and leverage points, and recommend
 measured improvements without confusing correlation with causation.
 
-Prefer the simplest explanation supported by evidence, but do not assume
-behaviour can be localized to one component: some behaviour arises from how
-components interact.
+Prefer the simplest evidence-supported explanation, but account for component
+interaction.
 
 It is not a formal standard.
 
 ## Activate Seibi when
 
-Use Seibi when at least one of these is true:
+Use Seibi when one or more apply:
 
-- the same failure, bottleneck, backlog, quality problem, or operational pattern recurs;
-- several components, agents, teams, queues, incentives, or resources interact
-  and materially affect the outcome;
+- a failure, bottleneck, backlog, quality problem, or operational pattern recurs;
+- components, agents, teams, queues, incentives, or resources interact and
+  materially affect the outcome;
 - fixing one metric appears to worsen another;
 - behaviour oscillates, compounds, overshoots, or changes after a delay;
-- local fixes repeatedly fail or require manual intervention;
-- the user explicitly asks for system dynamics, feedback loops, leverage points,
+- local fixes repeatedly fail or need manual intervention;
+- the user asks for system dynamics, feedback loops, leverage points,
   second-order effects, or a system-level explanation.
 
-Do **not** activate Seibi merely because there is:
+Do **not** activate merely for:
 
 - one isolated bug or incident with an obvious local cause;
-- a request to read a dashboard or summarize metrics;
-- routine debugging or configuration change that can be resolved directly;
-- multiple components existing without evidence their interaction affects the outcome.
+- reading a dashboard or summarizing metrics;
+- routine debugging or configuration change resolvable directly;
+- multiple components without evidence their interaction affects the outcome.
 
-If uncertain, use the smallest adequate method first; escalate only when
-evidence suggests a system-level pattern.
+If uncertain, use the smallest adequate method; escalate when evidence suggests
+a system-level pattern.
 
 ## Default authority and permissions
 
 Seibi defaults to **observe, analyze, and recommend**.
 
-Without explicit authorization, do not:
-
-- change production configuration, code, infrastructure, routing, scaling, retry
-  policy, prompts, models, permissions, or data retention;
-- deploy instrumentation, agents, collectors, dashboards, databases, or tracing;
-- run disruptive experiments, synthetic load, restarts, failovers, or traffic shifts;
-- enable new logging or collect new sensitive data.
-
-When evidence is missing, state what is missing and recommend the minimum useful
-instrumentation. Implement it only when the user has authorized that action.
-
-Existing read-only telemetry may be inspected when normal tool permissions allow it.
+Without explicit authorization, do not change production configuration, code,
+infrastructure, routing, scaling, retry policy, prompts, models, permissions,
+or retention; deploy instrumentation; run disruptive experiments, synthetic
+load, restarts, failovers, or traffic shifts; or enable logging/collect
+sensitive data. When evidence is missing, state the gap and recommend minimum
+useful instrumentation; implement it only when authorized. Inspect existing
+read-only telemetry when permitted.
 
 ## Privacy and data-minimization boundary
 
 Collect the minimum evidence required for the question.
 
-Do not log or persist:
-
-- passwords, API keys, access tokens, cookies, private keys, or credentials;
-- user prompts or model responses by default;
-- personal data or personally identifying information;
-- unrestricted user, device, session, request, or account identifiers;
-- message bodies, request bodies, file contents, or other sensitive payloads;
-- secrets embedded in environment variables, headers, URLs, traces, or error output.
+Do not log or persist passwords, API keys, tokens, cookies, private keys, or
+credentials; prompts or responses by default; personal data; unrestricted
+identifiers; message/request bodies, file contents, or sensitive payloads; or
+secrets in environment variables, headers, URLs, traces, or error output.
 
 Prefer aggregates, redacted event types, bounded pseudonymous identifiers, and
-short retention. If sensitive content is genuinely necessary, stop and obtain
-explicit authorization and define scope, retention, access, and redaction first.
+short retention. If sensitive content is necessary, stop and obtain explicit
+authorization and define scope, retention, access, and redaction first.
 
 ## Core loop
 
@@ -98,38 +88,42 @@ State:
 - the system-level outcome that matters;
 - the time window.
 
-Do not optimize a component before defining the system outcome.
+Define the system outcome before judging components; local efficiency counts
+only if it improves that outcome or guardrails.
 
 ### 2. Observe
 
-Use available evidence to establish:
+Establish from available evidence:
 
-- baseline behaviour;
+- baseline flow, waiting, saturation, rework, shortfalls;
 - important accumulations or **stocks**, including where accumulated state may
   alter later behaviour;
 - inflows and outflows;
 - material events or changes;
 - evidence gaps.
 
-Examples of stocks include backlog, unresolved incidents, technical debt,
-pending approvals, accumulated cost, or rework.
+Examples: backlog, unresolved incidents, technical debt, pending approvals,
+accumulated cost, or rework.
 
 Do not create heavyweight observability because Seibi is active.
 
 ### 3. Model
 
-Describe only the structure and interaction needed to explain the question:
+Describe only needed structure and interaction:
 
 - important relationships and interactions;
 - reinforcing and balancing feedback;
 - meaningful delays and state dependence;
-- constraints, nonlinearities, or thresholds that materially change behaviour.
+- candidate constraints, nonlinearities, or thresholds that change behaviour.
+  Treat a constraint as governing only if improving, relieving, or protecting
+  it should materially improve the outcome; queues and utilisation are
+  evidence, not proof.
 
 Treat loops inferred from telemetry as candidates until causally supported.
 
 ### 4. Challenge
 
-For each material explanation, record:
+For each material explanation or candidate constraint, record:
 
 - the leading hypothesis;
 - at least one plausible alternative, if any;
@@ -147,18 +141,21 @@ Temporal proximity and correlation generate hypotheses; they do not prove causes
 
 Before recommending a material intervention, state what the model predicts:
 
-- which outcome should change;
+- which system outcome should change; local metrics are supporting signals;
 - direction of change;
 - approximate magnitude, threshold, or regime change if defensible;
 - expected delay or observation window;
 - guardrails that should remain acceptable.
 
-A model that cannot make a useful falsifiable prediction retains low causal confidence.
+Without falsifiable prediction, keep causal confidence low.
 
 ### 6. Find leverage
 
-Prefer interventions that change the producing structure or interaction, not
-merely its symptoms.
+Prefer changes to the producing structure or interaction. Deprioritize local
+optimisation unless it improves the defined outcome, relieves a supported
+governing constraint, or weakens the supported mechanism. If so,
+recover avoidable loss, align surrounding flow (release, priorities, batches,
+WIP), then add capacity or redesign only when evidence justifies it.
 
 Consider, from lower to higher leverage:
 
@@ -178,12 +175,13 @@ intervention that addresses the supported mechanism.
 
 ### 7. Recommend or test
 
-By default, recommend the change rather than executing it.
+By default, recommend rather than execute the change.
 
 For a proposed experiment specify:
 
 - hypothesis;
-- smallest useful change;
+- smallest useful change, preferably testing whether a candidate constraint
+  changes the system outcome;
 - expected result;
 - observation window;
 - primary system outcome;
@@ -215,7 +213,9 @@ Compare predicted with observed results:
 - **MISS**
 - **INCONCLUSIVE**
 
-Strengthen, weaken, reject, or revise the model accordingly. Preserve failed
+Strengthen, weaken, reject, or revise the model accordingly. After a successful
+constraint change, reassess the system's new limit before optimising the old
+target. Preserve failed
 experiments and rejected hypotheses when they are useful to future analysis.
 
 ## Instrumentation proportionality
@@ -239,7 +239,7 @@ Persistent artifacts such as `SYSTEM_MODEL.md`, `system-model.yaml`, evidence
 ledgers, or dashboards are appropriate for important, long-lived, repeatedly
 analyzed systems. They are unnecessary for many investigations.
 
-Detailed optional templates are in `references/`.
+See `references/` for optional templates.
 
 ## Confidence
 
@@ -275,7 +275,7 @@ Relevant stocks/flows, relationships, loops, delays, and constraints.
 Leading explanation, alternatives, falsifiers, and confidence.
 
 ## Leverage
-Where intervention is most likely to improve the system and why.
+Where intervention best improves the system, its constraint priority, and why.
 
 ## Recommendation
 The smallest justified next action. State whether it is read-only,
@@ -296,42 +296,41 @@ If evidence is inadequate, a valid conclusion is:
 ## End-to-end example
 
 **Input:**
-"Every weekday around 09:00 our support-agent queue spikes. We increased
-workers from 8 to 12, but p95 completion time still rises and operators keep
-restarting workers. Work out what is happening and tell me what to change."
+"Every weekday at 09:00 our support queue spikes. Workers rose from 8 to 12,
+but p95 completion time still rises and operators restart workers. What should
+we change?"
 
 **Boundary and evidence:**
-Scope the queue, workers, retrying clients, and the downstream tool; existing
-metrics and traces suffice.
+Scope the queue, workers, retrying clients, and downstream tool; metrics and
+traces suffice.
 
 **Analysis:**
-Backlog is the key stock. At 09:00, primary arrival rises 35% but total
-request rises 80%. Timeouts rise first, retries follow ~20 seconds later, and
-utilization and queue wait climb together — consistent with interacting
-components, not one failing part.
+Backlog is the key stock. At 09:00, primary arrivals rise 35% but total
+requests rise 80%; timeouts precede retries by ~20 seconds, and utilisation
+and queue wait climb together — consistent with interaction, not one failed
+part.
 
 **Competing hypotheses:**
 
-- H1 (interaction-level): retry amplification forms a reinforcing loop —
-  queue wait → timeout → retry → arrival rate → queue wait — crossing a
-  threshold at high utilization.
+- H1 (interaction-level): retry amplification forms a reinforcing loop — queue
+  wait → timeout → retry → arrival rate → queue wait — crossing a threshold.
 - H2: the downstream tool independently slows at 09:00.
 - H3: twelve workers introduce lock contention.
 
-Traces weaken H2: tool latency stays near baseline before queue wait rises;
-H3 remains plausible.
+Traces weaken H2: tool latency stays near baseline before queue wait rises; H3
+remains plausible.
 
 **Prediction:**
-If H1 dominates, cutting retry traffic on a small authorized slice while
-holding load steady should reduce queue growth within 1–2 minutes;
-unchanged growth would weaken H1.
+If H1 dominates, cutting retries on a small authorized slice while holding
+load steady should reduce queue growth within 1–2 minutes; unchanged growth
+weakens H1.
 
 **Experiment and recommendation:**
-Request authorization for a bounded retry experiment on 10% of traffic, with
-success and error rate as guardrails; roll back if either worsens. Do not add
-workers yet — test retries first; if confirmed, backpressure or retry rules
-are the higher-leverage fix. Confidence: MEDIUM until H1 is distinguished
-from H3.
+Request authorization for a bounded 10% retry experiment, with success and
+error rate as guardrails; roll back if either worsens. Do not add workers yet:
+test whether retries or another shared dependency governs; if relieved,
+reassess what now limits performance. Confidence: MEDIUM until H1 is
+distinguished from H3.
 
 ## Optional references
 
@@ -354,10 +353,12 @@ established fields below:
 - Klaus Mainzer, *Thinking in Complexity: The Computational Dynamics of
   Matter, Mind, and Mankind* — nonlinear interaction, emergence,
   self-organization, and state dependence.
+- Eliyahu M. Goldratt and Jeff Cox, *The Goal: A Process of Ongoing
+  Improvement* — constraints and whole-system improvement.
 - Jay W. Forrester, work on system dynamics.
 - General scientific practices of competing hypotheses, falsification,
   controlled experimentation, and prediction.
 - Modern software observability practices involving metrics, structured logs,
   distributed traces, event histories, and service-level outcomes.
 
-See `references/` for optional implementation patterns and templates.
+See `references/` for optional patterns.

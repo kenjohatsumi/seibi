@@ -82,3 +82,31 @@ This is a five-scenario forward test with single-run sampling per condition,
 not a statistically powered study or independent production evaluation.
 Confidence in the direction of the result is reasonable; confidence in the
 exact magnitude is not.
+
+## v0.2.0 → v0.3.0 constraint-focus evaluation
+
+The candidate was checked against the fixed CF-1–CF-7 cases in
+[`FORWARD_TESTS.md`](FORWARD_TESTS.md), using the same prompt intent for the
+baseline and retuned instructions. These are specification-level forward
+checks, not independent agent runs or production evidence.
+
+| Criterion | v0.2.0 | Candidate v0.3.0 |
+|---|---|---|
+| Correct activation / negative control | PASS | PASS |
+| Whole-system over local optimisation | PASS | PASS — explicit priority rule |
+| Candidate constraint reasoning | PARTIAL | PASS |
+| Queue is not proof of constraint | NOT EXPLICIT | PASS |
+| Utilisation trap avoided | PARTIAL | PASS |
+| Recover before unnecessary scaling | NOT EXPLICIT | PASS |
+| Align non-constraints when justified | PARTIAL | PASS |
+| Constraint falsifiability | PARTIAL | PASS |
+| Constraint migration | NOT EXPLICIT | PASS |
+| Prediction and failed-result discipline | PASS | PASS |
+| Competing hypotheses / causal restraint | PASS | PASS |
+| Meadows and Mainzer reasoning | PASS | PASS |
+| Permissions and privacy | PASS | PASS |
+| Runtime verbosity / jargon inflation | PASS | PASS |
+
+The retune passes CF-1 through CF-7 without forcing constraint analysis on the
+negative control. No quantitative effectiveness claim is made from this small,
+instruction-level set; pilot use on independent tasks remains necessary.

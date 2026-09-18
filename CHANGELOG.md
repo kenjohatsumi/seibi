@@ -1,5 +1,27 @@
 # Changelog
 
+## v0.3.0 — 2026-09-18
+
+Constraint-focused retuning: distinguishes whole-system improvement from local
+optimisation, tests candidate governing constraints, considers recovery and
+alignment before unnecessary capacity expansion, and reassesses the limiting
+factor after successful interventions. Existing activation, causal, safety,
+privacy, and permission boundaries remain unchanged.
+
+### Tests
+
+Added CF-1–CF-7 forward checks for apparent bottlenecks, utilisation traps,
+capacity recovery, non-constraint alignment, constraint migration, falsified
+constraint hypotheses, and negative-control behaviour. All passed at the
+specification level; this is not evidence of independent production
+effectiveness. See [`FORWARD_TESTS.md`](FORWARD_TESTS.md),
+[`VALIDATION.md`](VALIDATION.md), and [`RETUNING_EVALUATION.md`](RETUNING_EVALUATION.md).
+
+### Status
+
+Versioned as a backward-compatible minor conceptual retune. Runtime growth is
+213 bytes (+1.67%) over v0.2.0.
+
 ## v0.2.0 — 2026-09-15
 
 Conceptual retuning: recognizes interaction dynamics, nonlinearity, and
