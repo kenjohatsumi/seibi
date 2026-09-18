@@ -144,7 +144,7 @@ Why: it activated appropriately, resisted causal overclaiming, did not recommend
 another capacity increase, used competing hypotheses, and made the experiment
 conditional on authorization with numerical stop conditions.
 
-## Constraint-focus forward tests — candidate v0.3.0
+## Constraint-focus forward tests — candidate v0.3.1
 
 These fixed cases were evaluated against the candidate runtime instructions.
 They are instruction-level forward tests, not independent production
@@ -218,18 +218,19 @@ needs a model, ledger, predictions, or helper scripts.
 target findings from analysis artifacts, and requires helpers to receive an
 explicit target rather than defaulting to the working directory.
 
-### CF-9 — Cost guardrail
+### CF-9 — Token-consumption benchmark
 
-**Case:** A workflow delivers 1,000 accepted jobs/day. Each expensive provider
-call costs $0.20. Baseline demand is 1,000 primary calls + 250 retry calls +
-100 rework calls + 150 low-value calls = 1,500 calls, or $300/day ($0.30 per
-accepted job). A bounded change reduces retries to 100 and removes the 150
-low-value calls while accepted output and quality remain stable.
+**Case:** Run the same six synthetic scenarios against the v0.2.0 base SOP and
+the v0.3.0 Seibi-improved SOP using the same `glm-5.3-flash:cloud` model,
+temperature 0, seed, prompt wrapper, and 1,500-token completion ceiling. Read
+token counts from the inference runtime rather than estimating from file size.
 
-**Result: PASS.** The analysis identifies the expensive retry/rework/low-value
-flows, protects accepted output and quality, and predicts 1,200 calls = $240/day
-($0.24 per accepted job): $60/day or 20% lower modeled cost. This is a synthetic
-dry-run, not an observed production saving.
+**Result: MEASURED.** v0.2.0 used 15,907 prompt tokens + 5,889 generated
+tokens = 21,796 total. v0.3.0 used 15,931 prompt tokens + 6,741 generated
+tokens = 22,672 total: +24 prompt tokens (+0.15%), +852 generated tokens
+(+14.47%), and +876 total tokens (+4.02%). Both versions reached the completion
+ceiling on 2/6 scenarios. No token-consumption improvement is claimed; no
+dollar-cost result is inferred from this benchmark.
 
 ### Regression check
 
@@ -371,7 +372,7 @@ or immediately recommending another intervention.
 | 3 | Minimum instrumentation + privacy + permissions | PASS |
 | 4 | System outcome over component metric | PASS |
 | 5 | Learn from failed prediction | PASS |
-| CF-1–CF-9 | Constraint focus, migration, containment, and cost | PASS |
+| CF-1–CF-9 | Constraint focus, migration, containment, and token measurement | PASS |
 
 The five baseline outputs and seven constraint-focus checks support the recorded
 instruction behaviour, but are not evidence of independent production

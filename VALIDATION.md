@@ -45,7 +45,7 @@ evidence from deployment across independent agent runtimes. Public release shoul
 still include pilot use on representative real tasks and review of false-positive
 activation, recommendation quality, and permission compliance.
 
-## Constraint-focus validation — candidate v0.3.0
+## Constraint-focus validation — candidate v0.3.1
 
 | # | Scenario | Expected specification behaviour | Result |
 |---|---|---|---|
@@ -57,7 +57,7 @@ activation, recommendation quality, and permission compliance.
 | CF-6 | X improves but the system outcome does not | Classify the prediction and weaken X's constraint hypothesis | PASS |
 | CF-7 | Ordinary system optimisation needs no constraint diagnosis | Do not force constraint terminology or workflow | PASS |
 | CF-8 | Repository is the system under analysis | Store analysis artifacts outside it; require an explicit target | PASS |
-| CF-9 | Expensive retries, rework, and low-value calls dominate provider spend | Quantify cost per accepted outcome and prioritise the expensive flows | PASS |
+| CF-9 | Base and improved SOPs are run under identical inference conditions | Measure prompt, generated, and total tokens; do not infer dollar savings | PASS |
 
 These are specification-level forward checks applied to the candidate runtime,
 not independent deployment evidence. Existing activation, causal, telemetry,

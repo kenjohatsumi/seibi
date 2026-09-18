@@ -1,5 +1,14 @@
 # Changelog
 
+## v0.3.1 — 2026-09-18
+
+Corrected the cost evidence for the v0.3.0 retune. Removed the synthetic
+provider-cost scenario and replaced it with a direct base-versus-improved SOP
+inference benchmark using identical runtime conditions. Across six scenarios,
+v0.3.0 used 22,672 total tokens versus 21,796 for v0.2.0 (+876, +4.02%). No
+dollar-cost or token-saving improvement is claimed; the result is a measured
+usage comparison whose decision-quality trade-off remains open.
+
 ## v0.3.0 — 2026-09-18
 
 Constraint-focused retuning: distinguishes whole-system improvement from local
@@ -14,13 +23,10 @@ boundaries remain unchanged.
 
 Added CF-1–CF-9 forward checks for apparent bottlenecks, utilisation traps,
 capacity recovery, non-constraint alignment, constraint migration, falsified
-constraint hypotheses, analysis-record containment, expensive-flow cost
-drivers, and negative-control behaviour. The Jev-assisted two-pass rubric
-recorded +0.85 percentage points on target reasoning, +4.24 points on negative
-controls, and +70.50 points on containment. The cost-bearing dry-run models
-provider cost falling from $300/day to $240/day (-20%, $60/day) while accepted
-output remains stable; this is a synthetic forecast, not a production result.
-See
+constraint hypotheses, analysis-record containment, expensive-flow priority,
+and negative-control behaviour. The Jev-assisted two-pass rubric recorded
++0.85 percentage points on target reasoning, +4.24 points on negative controls,
+and +70.50 points on containment. See
 [`FORWARD_TESTS.md`](FORWARD_TESTS.md),
 [`VALIDATION.md`](VALIDATION.md), and [`RETUNING_EVALUATION.md`](RETUNING_EVALUATION.md).
 

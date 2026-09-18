@@ -101,7 +101,7 @@ controls where available.
 
 ## Version
 
-Current release: **v0.3.0**
+Current release: **v0.3.1**
 
 See [`CHANGELOG.md`](CHANGELOG.md).
 

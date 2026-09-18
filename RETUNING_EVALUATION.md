@@ -87,9 +87,10 @@ exact magnitude is not.
 
 This used the v0.1→v0.2 rubric shape, with one important limitation. Seven
 fixed checks were used: the same S1–S5 family, S6 for analysis-record
-containment, and S7 as a cost-bearing system dry-run. S1–S6 were evaluated in
-two independent Jev scoring passes; each pass supplied only one `SKILL.md`
-version and the scenario to the judge. Scores were 0–2 per criterion:
+containment, and S7 as a direct token-consumption benchmark. S1–S6 were
+evaluated in two independent Jev scoring passes; each pass supplied only one
+`SKILL.md` version and the scenario to the judge. Scores were 0–2 per
+criterion:
 
 - S1, S3, S5: interaction, nonlinear/state-dependent reasoning, whole-system
   goal, and calibrated confidence (24 points maximum);
@@ -97,9 +98,8 @@ version and the scenario to the judge. Scores were 0–2 per criterion:
   points maximum);
 - S6: external location, explicit target/fail-closed tooling, and separation of
   target findings from analysis records (6 points maximum).
-- S7 is not a Jev score: it is a cost-bearing dry-run with explicit expensive
-  flows and cost per accepted outcome, measured as a model forecast rather than
-  a production observation.
+- S7 is not a Jev score: it is a direct inference-runtime measurement of prompt
+  and generated tokens across six fixed synthetic scenarios.
 
 This is comparable to the earlier rubric, but not identical: v0.1→v0.2 used
 fresh independent agents producing analyses, while this pass used Jev as an
@@ -115,21 +115,23 @@ Pass-level detail for the new containment criterion was effectively 0/3 for
 v0.2.0 and 3/3 for v0.3.0. The target-reasoning gain is modest; the measurable
 result of this release is the containment fix.
 
-### Cost-bearing dry-run — S7
+### Token-consumption benchmark — S7
 
-| Quantity | Baseline | After bounded change | Change |
+| Quantity across six scenarios | v0.2.0 base SOP | v0.3.0 improved SOP | Change |
 |---|---:|---:|---:|
-| Accepted jobs/day | 1,000 | 1,000 | 0% |
-| Expensive provider calls/day | 1,500 | 1,200 | -300 (-20%) |
-| Provider cost/day | $300 | $240 | -$60 (-20%) |
-| Cost per accepted job | $0.30 | $0.24 | -$0.06 (-20%) |
+| Prompt tokens | 15,907 | 15,931 | +24 (+0.15%) |
+| Generated tokens | 5,889 | 6,741 | +852 (+14.47%) |
+| Total tokens | 21,796 | 22,672 | +876 (+4.02%) |
+| Mean total tokens/scenario | 3,632.67 | 3,778.67 | +146.00 (+4.02%) |
 
-This quantifies the saving from the stated cost-driver intervention. It is a
-synthetic model forecast, not evidence that a real system has saved $60/day.
-No real workload cost ledger was available for this repository, so there is no
-honest production v0.2.0→v0.3.0 dollar delta yet. Jev input-token footprint is
-reported separately as evaluation overhead and is not a system cost result.
+The benchmark used `glm-5.3-flash:cloud`, temperature 0, seed `20260918`, the
+same prompt wrapper, and a 1,500-token completion ceiling; both versions hit
+that ceiling on 2/6 scenarios. These are measured inference tokens, not a
+dollar-cost claim. The result shows no token-consumption improvement in this
+pass: the improved SOP used 4.02% more total tokens. The benchmark did not
+score decision quality, so it cannot establish whether the additional output
+was beneficial.
 
 These results support closing the defect only after the fix is published and
 the forward containment check is retained. They do not establish production
-effectiveness or justify claiming a broad optimisation improvement.
+effectiveness or justify claiming a broad optimisation or cost improvement.
