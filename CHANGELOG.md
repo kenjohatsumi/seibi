@@ -14,12 +14,13 @@ boundaries remain unchanged.
 
 Added CF-1–CF-9 forward checks for apparent bottlenecks, utilisation traps,
 capacity recovery, non-constraint alignment, constraint migration, falsified
-constraint hypotheses, analysis-record containment, cost guardrails, and
-negative-control behaviour. The final Jev-assisted two-pass rubric recorded
-+0.85 percentage points on target reasoning, +4.24 points on negative controls,
-+70.50 points
-on containment, and no change in cost-aware decision quality. Prompt footprint
-fell 0.32% by input tokens. These are not production results. See
+constraint hypotheses, analysis-record containment, expensive-flow cost
+drivers, and negative-control behaviour. The Jev-assisted two-pass rubric
+recorded +0.85 percentage points on target reasoning, +4.24 points on negative
+controls, and +70.50 points on containment. The cost-bearing dry-run models
+provider cost falling from $300/day to $240/day (-20%, $60/day) while accepted
+output remains stable; this is a synthetic forecast, not a production result.
+See
 [`FORWARD_TESTS.md`](FORWARD_TESTS.md),
 [`VALIDATION.md`](VALIDATION.md), and [`RETUNING_EVALUATION.md`](RETUNING_EVALUATION.md).
 

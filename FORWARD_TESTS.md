@@ -220,11 +220,16 @@ explicit target rather than defaulting to the working directory.
 
 ### CF-9 — Cost guardrail
 
-**Case:** Tasks per hour rise from 80 to 105, rework rises from 8% to 19%, and
-cost per accepted task rises 14%.
+**Case:** A workflow delivers 1,000 accepted jobs/day. Each expensive provider
+call costs $0.20. Baseline demand is 1,000 primary calls + 250 retry calls +
+100 rework calls + 150 low-value calls = 1,500 calls, or $300/day ($0.30 per
+accepted job). A bounded change reduces retries to 100 and removes the 150
+low-value calls while accepted output and quality remain stable.
 
-**Result: PASS.** The analysis treats cost per accepted output as a guardrail
-and does not call the local throughput change an unqualified success.
+**Result: PASS.** The analysis identifies the expensive retry/rework/low-value
+flows, protects accepted output and quality, and predicts 1,200 calls = $240/day
+($0.24 per accepted job): $60/day or 20% lower modeled cost. This is a synthetic
+dry-run, not an observed production saving.
 
 ### Regression check
 

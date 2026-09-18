@@ -86,11 +86,10 @@ exact magnitude is not.
 ## v0.2.0 → v0.3.0 evaluation
 
 This used the v0.1→v0.2 rubric shape, with one important limitation. Seven
-fixed scenarios were used: the same S1–S5 family plus S6 for analysis-record
-containment and S7 for cost-aware decision quality. Each version was evaluated
-in two independent Jev scoring passes;
-each pass supplied only one `SKILL.md` version and the scenario to the judge.
-Scores were 0–2 per criterion:
+fixed checks were used: the same S1–S5 family, S6 for analysis-record
+containment, and S7 as a cost-bearing system dry-run. S1–S6 were evaluated in
+two independent Jev scoring passes; each pass supplied only one `SKILL.md`
+version and the scenario to the judge. Scores were 0–2 per criterion:
 
 - S1, S3, S5: interaction, nonlinear/state-dependent reasoning, whole-system
   goal, and calibrated confidence (24 points maximum);
@@ -98,8 +97,9 @@ Scores were 0–2 per criterion:
   points maximum);
 - S6: external location, explicit target/fail-closed tooling, and separation of
   target findings from analysis records (6 points maximum).
-- S7: cost-per-accepted-output guardrail and cost-aware recommendation (4 points
-  maximum).
+- S7 is not a Jev score: it is a cost-bearing dry-run with explicit expensive
+  flows and cost per accepted outcome, measured as a model forecast rather than
+  a production observation.
 
 This is comparable to the earlier rubric, but not identical: v0.1→v0.2 used
 fresh independent agents producing analyses, while this pass used Jev as an
@@ -111,18 +111,24 @@ not production evidence.
 | Target reasoning, S1/S3/S5 | 21.30/24 (88.77%) | 21.51/24 (89.62%) | +0.21 (+0.85 pp) |
 | Negative controls, S2/S4 | 10.37/12 (86.38%) | 10.88/12 (90.62%) | +0.51 (+4.24 pp) |
 | Containment, S6 | 1.70/6 (28.33%) | 5.93/6 (98.83%) | +4.23 (+70.50 pp) |
-| Cost-aware reasoning, S7 | 3.94/4 (98.50%) | 3.94/4 (98.50%) | 0.00 (0.00 pp) |
-
 Pass-level detail for the new containment criterion was effectively 0/3 for
 v0.2.0 and 3/3 for v0.3.0. The target-reasoning gain is modest; the measurable
-result of this release is the containment fix. The cost-aware decision score
-did not improve because the v0.2.0 runtime already handled the cost/rework
-trade-off well.
+result of this release is the containment fix.
 
-Execution-cost proxy: on the same one-question Jev request, the runtime used
-3,455 input tokens for v0.2.0 and 3,444 for v0.3.0 (−11, −0.32%). The runtime
-also fell from 12,777 to 12,636 bytes (−1.10%) and from 1,755 to 1,737 words
-(−1.03%). These are prompt-footprint measures, not a dollar-billing claim.
+### Cost-bearing dry-run — S7
+
+| Quantity | Baseline | After bounded change | Change |
+|---|---:|---:|---:|
+| Accepted jobs/day | 1,000 | 1,000 | 0% |
+| Expensive provider calls/day | 1,500 | 1,200 | -300 (-20%) |
+| Provider cost/day | $300 | $240 | -$60 (-20%) |
+| Cost per accepted job | $0.30 | $0.24 | -$0.06 (-20%) |
+
+This quantifies the saving from the stated cost-driver intervention. It is a
+synthetic model forecast, not evidence that a real system has saved $60/day.
+No real workload cost ledger was available for this repository, so there is no
+honest production v0.2.0→v0.3.0 dollar delta yet. Jev input-token footprint is
+reported separately as evaluation overhead and is not a system cost result.
 
 These results support closing the defect only after the fix is published and
 the forward containment check is retained. They do not establish production
