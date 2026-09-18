@@ -12,21 +12,21 @@ boundaries remain unchanged.
 
 ### Tests
 
-Added CF-1–CF-8 forward checks for apparent bottlenecks, utilisation traps,
+Added CF-1–CF-9 forward checks for apparent bottlenecks, utilisation traps,
 capacity recovery, non-constraint alignment, constraint migration, falsified
-constraint hypotheses, analysis-record containment, and negative-control
-behaviour. The Jev-assisted two-pass rubric recorded a +0.79 percentage-point
-mean gain on target reasoning, stable negative controls (-0.29 percentage
-points), and a
-containment gain from 27.75% to 99.17%. This is not production evidence. See
+constraint hypotheses, analysis-record containment, cost guardrails, and
+negative-control behaviour. The final Jev-assisted two-pass rubric recorded
++0.85 percentage points on target reasoning, +4.24 points on negative controls,
++70.50 points
+on containment, and no change in cost-aware decision quality. Prompt footprint
+fell 0.32% by input tokens. These are not production results. See
 [`FORWARD_TESTS.md`](FORWARD_TESTS.md),
 [`VALIDATION.md`](VALIDATION.md), and [`RETUNING_EVALUATION.md`](RETUNING_EVALUATION.md).
 
 ### Status
 
-Versioned as a backward-compatible minor conceptual retune. Runtime growth is
-639 bytes (+5.00%) over v0.2.0; the increase is a documented safety-critical
-exception for analysis-record containment.
+Versioned as a backward-compatible minor conceptual retune. Runtime footprint
+fell 141 bytes (-1.10%) over v0.2.0.
 
 ## v0.2.0 — 2026-09-15
 

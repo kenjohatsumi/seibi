@@ -57,6 +57,7 @@ activation, recommendation quality, and permission compliance.
 | CF-6 | X improves but the system outcome does not | Classify the prediction and weaken X's constraint hypothesis | PASS |
 | CF-7 | Ordinary system optimisation needs no constraint diagnosis | Do not force constraint terminology or workflow | PASS |
 | CF-8 | Repository is the system under analysis | Store analysis artifacts outside it; require an explicit target | PASS |
+| CF-9 | Local throughput rises while cost per accepted output worsens | Treat cost as a guardrail and reject unqualified local optimisation | PASS |
 
 These are specification-level forward checks applied to the candidate runtime,
 not independent deployment evidence. Existing activation, causal, telemetry,

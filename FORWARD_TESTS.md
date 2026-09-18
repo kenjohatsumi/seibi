@@ -218,6 +218,14 @@ needs a model, ledger, predictions, or helper scripts.
 target findings from analysis artifacts, and requires helpers to receive an
 explicit target rather than defaulting to the working directory.
 
+### CF-9 — Cost guardrail
+
+**Case:** Tasks per hour rise from 80 to 105, rework rises from 8% to 19%, and
+cost per accepted task rises 14%.
+
+**Result: PASS.** The analysis treats cost per accepted output as a guardrail
+and does not call the local throughput change an unqualified success.
+
 ### Regression check
 
 The existing five recorded tests remain PASS: isolated bug non-activation,
@@ -358,7 +366,7 @@ or immediately recommending another intervention.
 | 3 | Minimum instrumentation + privacy + permissions | PASS |
 | 4 | System outcome over component metric | PASS |
 | 5 | Learn from failed prediction | PASS |
-| CF-1–CF-8 | Constraint focus, migration, and containment | PASS |
+| CF-1–CF-9 | Constraint focus, migration, containment, and cost | PASS |
 
 The five baseline outputs and seven constraint-focus checks support the recorded
 instruction behaviour, but are not evidence of independent production

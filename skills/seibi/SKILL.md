@@ -22,8 +22,6 @@ measured improvements without confusing correlation with causation.
 Prefer the simplest evidence-supported explanation, but account for component
 interaction.
 
-It is not a formal standard.
-
 ## Activate Seibi when
 
 Use Seibi when one or more apply:
@@ -106,8 +104,7 @@ Establish from available evidence:
 - material events or changes;
 - evidence gaps.
 
-Examples: backlog, unresolved incidents, technical debt, pending approvals,
-accumulated cost, or rework.
+Examples: backlog, technical debt, or rework.
 
 Do not create heavyweight observability because Seibi is active.
 
@@ -174,12 +171,12 @@ Consider, from lower to higher leverage:
 9. system structure;
 10. underlying assumptions or paradigms.
 
-Higher leverage is not automatically better. Choose the least risky
-intervention that addresses the supported mechanism.
+Choose the least risky supported intervention; higher leverage is not
+automatically better.
 
 ### 7. Recommend or test
 
-By default, recommend rather than execute the change.
+Recommend rather than execute by default.
 
 For a proposed experiment specify:
 
@@ -205,8 +202,7 @@ stop if primary success rate falls below 98%;
 When a numerical threshold cannot be defined, state the qualitative stop
 condition and why it cannot be quantified safely.
 
-Avoid changing several interacting variables at once when a narrower
-experiment can distinguish hypotheses.
+Prefer narrower experiments that distinguish hypotheses.
 
 ### 8. Measure and update
 
@@ -230,7 +226,7 @@ Recommend additional metrics, logs, traces, dashboards, databases, or persistent
 models only when their expected decision value justifies their operational,
 privacy, security, storage, and maintenance cost.
 
-A useful readiness classification is:
+Readiness:
 
 - **READY** — evidence can distinguish the important hypotheses;
 - **PARTIALLY READY** — useful analysis is possible but causal confidence is limited;
@@ -245,8 +241,6 @@ explicit external analysis root, never a bare path in the target; separate
 target findings from the analysis model, ledger, and predictions. They are
 unnecessary for many investigations.
 
-See `references/` for optional templates.
-
 ## Confidence
 
 Use:
@@ -260,7 +254,7 @@ Never raise confidence merely because an explanation sounds coherent.
 
 ## Final output
 
-Keep the report proportional to the problem.
+Keep reports proportional.
 
 ```markdown
 # Seibi Analysis
@@ -294,7 +288,7 @@ Expected result, observation window, guardrails, stop conditions, and rollback.
 What is known, uncertain, and worth learning next?
 ```
 
-If evidence is inadequate, a valid conclusion is:
+If evidence is inadequate:
 
 > No defensible causal recommendation can yet be made. The next step is to obtain
 > the minimum evidence needed to distinguish the leading hypotheses.
@@ -337,17 +331,6 @@ error rate as guardrails; roll back if either worsens. Do not add workers yet:
 test whether retries or another shared dependency governs; if relieved,
 reassess what now limits performance. Confidence: MEDIUM until H1 is
 distinguished from H3.
-
-## Optional references
-
-Load these only when needed:
-
-- [`references/templates.md`](references/templates.md) — evidence, hypothesis,
-  prediction, intervention, and instrumentation templates.
-- [`references/machine-readable-model.md`](references/machine-readable-model.md) —
-  persistent YAML system model for repeated or multi-agent analysis.
-- [`references/system-archetypes.md`](references/system-archetypes.md) —
-  archetypes for generating hypotheses, never for proving them.
 
 ## References
 
