@@ -83,30 +83,38 @@ not a statistically powered study or independent production evaluation.
 Confidence in the direction of the result is reasonable; confidence in the
 exact magnitude is not.
 
-## v0.2.0 → v0.3.0 constraint-focus evaluation
+## v0.2.0 → v0.3.0 evaluation
 
-The candidate was checked against the fixed CF-1–CF-7 cases in
-[`FORWARD_TESTS.md`](FORWARD_TESTS.md), using the same prompt intent for the
-baseline and retuned instructions. These are specification-level forward
-checks, not independent agent runs or production evidence.
+This used the v0.1→v0.2 rubric shape, with one important limitation. Six fixed
+scenarios were used: the same S1–S5 family plus S6 for analysis-record
+containment. Each version was evaluated in two independent Jev scoring passes;
+each pass supplied only one `SKILL.md` version and the scenario to the judge.
+Scores were 0–2 per criterion:
 
-| Criterion | v0.2.0 | Candidate v0.3.0 |
-|---|---|---|
-| Correct activation / negative control | PASS | PASS |
-| Whole-system over local optimisation | PASS | PASS — explicit priority rule |
-| Candidate constraint reasoning | PARTIAL | PASS |
-| Queue is not proof of constraint | NOT EXPLICIT | PASS |
-| Utilisation trap avoided | PARTIAL | PASS |
-| Recover before unnecessary scaling | NOT EXPLICIT | PASS |
-| Align non-constraints when justified | PARTIAL | PASS |
-| Constraint falsifiability | PARTIAL | PASS |
-| Constraint migration | NOT EXPLICIT | PASS |
-| Prediction and failed-result discipline | PASS | PASS |
-| Competing hypotheses / causal restraint | PASS | PASS |
-| Meadows and Mainzer reasoning | PASS | PASS |
-| Permissions and privacy | PASS | PASS |
-| Runtime verbosity / jargon inflation | PASS | PASS |
+- S1, S3, S5: interaction, nonlinear/state-dependent reasoning, whole-system
+  goal, and calibrated confidence (24 points maximum);
+- S2, S4: activation, scope discipline, and negative-control reasoning (12
+  points maximum);
+- S6: external location, explicit target/fail-closed tooling, and separation of
+  target findings from analysis records (6 points maximum).
 
-The retune passes CF-1 through CF-7 without forcing constraint analysis on the
-negative control. No quantitative effectiveness claim is made from this small,
-instruction-level set; pilot use on independent tasks remains necessary.
+This is comparable to the earlier rubric, but not identical: v0.1→v0.2 used
+fresh independent agents producing analyses, while this pass used Jev as an
+independent typed judge of likely behaviour from the skill and scenario. It is
+not production evidence.
+
+| Measure | v0.2.0 mean | v0.3.0 mean | Change |
+|---|---:|---:|---:|
+| Target reasoning, S1/S3/S5 | 20.44/24 (85.15%) | 20.63/24 (85.94%) | +0.19 (+0.79 pp) |
+| Negative controls, S2/S4 | 10.18/12 (84.83%) | 10.15/12 (84.54%) | -0.03 (-0.29 pp) |
+| Containment, S6 | 1.67/6 (27.75%) | 5.95/6 (99.17%) | +4.28 (+71.42 pp) |
+
+Pass-level detail for the new containment criterion was effectively 0/3 for
+v0.2.0 and 3/3 for v0.3.0. The target-reasoning gain is modest; the measurable
+result of this release is the containment fix. The negative-control mean is
+stable within the two-pass variation, but the first pass dipped, so the
+explicit anti-inflation sentence was added before the second pass.
+
+These results support closing the defect only after the fix is published and
+the forward containment check is retained. They do not establish production
+effectiveness or justify claiming a broad optimisation improvement.

@@ -5,22 +5,28 @@
 Constraint-focused retuning: distinguishes whole-system improvement from local
 optimisation, tests candidate governing constraints, considers recovery and
 alignment before unnecessary capacity expansion, and reassesses the limiting
-factor after successful interventions. Existing activation, causal, safety,
-privacy, and permission boundaries remain unchanged.
+factor after successful interventions. Also fixes issue #1 by requiring analysis
+records and helper targets to remain explicitly outside the system under
+analysis. Existing activation, causal, safety, privacy, and permission
+boundaries remain unchanged.
 
 ### Tests
 
-Added CF-1–CF-7 forward checks for apparent bottlenecks, utilisation traps,
+Added CF-1–CF-8 forward checks for apparent bottlenecks, utilisation traps,
 capacity recovery, non-constraint alignment, constraint migration, falsified
-constraint hypotheses, and negative-control behaviour. All passed at the
-specification level; this is not evidence of independent production
-effectiveness. See [`FORWARD_TESTS.md`](FORWARD_TESTS.md),
+constraint hypotheses, analysis-record containment, and negative-control
+behaviour. The Jev-assisted two-pass rubric recorded a +0.79 percentage-point
+mean gain on target reasoning, stable negative controls (-0.29 percentage
+points), and a
+containment gain from 27.75% to 99.17%. This is not production evidence. See
+[`FORWARD_TESTS.md`](FORWARD_TESTS.md),
 [`VALIDATION.md`](VALIDATION.md), and [`RETUNING_EVALUATION.md`](RETUNING_EVALUATION.md).
 
 ### Status
 
 Versioned as a backward-compatible minor conceptual retune. Runtime growth is
-213 bytes (+1.67%) over v0.2.0.
+639 bytes (+5.00%) over v0.2.0; the increase is a documented safety-critical
+exception for analysis-record containment.
 
 ## v0.2.0 — 2026-09-15
 

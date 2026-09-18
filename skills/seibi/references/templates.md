@@ -33,7 +33,9 @@ Result: MATCH / PARTIAL / MISS / INCONCLUSIVE.
 
 ## Persistent system model
 
-Use `SYSTEM_MODEL.md` only when repeated analysis justifies persistent state.
+Use `<analysis-root>/SYSTEM_MODEL.md` only when repeated analysis justifies
+persistent state. `<analysis-root>` must be outside the system under analysis;
+never resolve this path from the target's working directory.
 
 Suggested headings:
 

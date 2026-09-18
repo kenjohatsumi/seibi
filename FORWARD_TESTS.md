@@ -209,6 +209,15 @@ interaction reasoning.
 **Result: PASS.** Constraint terminology and recover/align/add-capacity logic
 are not forced; the existing method remains sufficient.
 
+### CF-8 — Analysis-record containment
+
+**Case:** The system under analysis is a repository, and repeated analysis
+needs a model, ledger, predictions, or helper scripts.
+
+**Result: PASS.** The runtime requires an external analysis root, separates
+target findings from analysis artifacts, and requires helpers to receive an
+explicit target rather than defaulting to the working directory.
+
 ### Regression check
 
 The existing five recorded tests remain PASS: isolated bug non-activation,
@@ -349,7 +358,7 @@ or immediately recommending another intervention.
 | 3 | Minimum instrumentation + privacy + permissions | PASS |
 | 4 | System outcome over component metric | PASS |
 | 5 | Learn from failed prediction | PASS |
-| CF-1–CF-7 | Constraint focus and migration | PASS |
+| CF-1–CF-8 | Constraint focus, migration, and containment | PASS |
 
 The five baseline outputs and seven constraint-focus checks support the recorded
 instruction behaviour, but are not evidence of independent production

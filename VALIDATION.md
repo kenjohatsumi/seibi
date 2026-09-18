@@ -56,6 +56,7 @@ activation, recommendation quality, and permission compliance.
 | CF-5 | A improves from 40 to 90 while B remains at 70 | Reassess and move attention to B | PASS |
 | CF-6 | X improves but the system outcome does not | Classify the prediction and weaken X's constraint hypothesis | PASS |
 | CF-7 | Ordinary system optimisation needs no constraint diagnosis | Do not force constraint terminology or workflow | PASS |
+| CF-8 | Repository is the system under analysis | Store analysis artifacts outside it; require an explicit target | PASS |
 
 These are specification-level forward checks applied to the candidate runtime,
 not independent deployment evidence. Existing activation, causal, telemetry,

@@ -48,5 +48,5 @@ constraints: []
 open_questions: []
 ```
 
-Version control the model when practical. Never silently overwrite validated
-history.
+Store the model in an explicit analysis root outside the target. Version
+control it when practical; never silently overwrite validated history.

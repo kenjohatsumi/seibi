@@ -22,9 +22,11 @@ Seibi guides an agent to:
 - distinguish observations from causal claims;
 - maintain competing hypotheses and falsifiers;
 - identify practical leverage points;
+- prioritize whole-system improvement over unsupported local optimisation;
 - make predictions before interventions;
 - recommend bounded experiments with guardrails and rollback;
 - measure observed results and update the system model;
+- keep analysis records outside the system under analysis;
 - avoid unauthorized production changes and unnecessary data collection.
 
 The runtime method is intentionally compact. Optional schemas, ledgers, and
@@ -90,17 +92,16 @@ the skill instructions contain the intended safeguards and decision rules; they
 are **not evidence of real-world deployment performance**.
 
 `FORWARD_TESTS.md` contains recorded forward tests in which representative
-prompts were processed using the v0.1 methodology and the resulting analyses
-were reviewed against the intended behaviour.
+prompts were processed using Seibi instructions and the resulting analyses were
+reviewed against intended behaviour.
 
-`RETUNING_EVALUATION.md` contains a quantitative before/after comparison of
-v0.1.0 and v0.2.0 across five forward-test scenarios, used to check that the
-v0.2.0 conceptual retuning produced a measurable improvement on its target
-reasoning without regressing on negative controls.
+`RETUNING_EVALUATION.md` contains quantitative before/after comparisons for
+the release retunings, including independent-agent scoring and negative
+controls where available.
 
 ## Version
 
-Current release: **v0.2.0**
+Current release: **v0.3.0**
 
 See [`CHANGELOG.md`](CHANGELOG.md).
 
@@ -111,6 +112,8 @@ Seibi is a practical methodology inspired by:
 - Donella H. Meadows, *Thinking in Systems: A Primer*;
 - Klaus Mainzer, *Thinking in Complexity: The Computational Dynamics of
   Matter, Mind, and Mankind*;
+- Eliyahu M. Goldratt and Jeff Cox, *The Goal: A Process of Ongoing
+  Improvement*;
 - Jay W. Forrester and the field of system dynamics;
 - scientific practices involving competing hypotheses, falsification,
   prediction, and controlled experimentation;

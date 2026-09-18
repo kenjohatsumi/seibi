@@ -45,7 +45,8 @@ Do **not** activate merely for:
 - multiple components without evidence their interaction affects the outcome.
 
 If uncertain, use the smallest adequate method; escalate when evidence suggests
-a system-level pattern.
+a system-level pattern. Do not force constraint analysis onto ordinary or
+strictly linear, single-component cases.
 
 ## Default authority and permissions
 
@@ -56,8 +57,10 @@ infrastructure, routing, scaling, retry policy, prompts, models, permissions,
 or retention; deploy instrumentation; run disruptive experiments, synthetic
 load, restarts, failovers, or traffic shifts; or enable logging/collect
 sensitive data. When evidence is missing, state the gap and recommend minimum
-useful instrumentation; implement it only when authorized. Inspect existing
-read-only telemetry when permitted.
+instrumentation; implement only when authorized. Inspect read-only telemetry
+when permitted. Keep analysis artifacts outside target: never write models,
+ledgers, scripts, or reports into its tree or lifecycle controls. Helpers require
+an explicit target and fail closed if absent.
 
 ## Privacy and data-minimization boundary
 
@@ -86,7 +89,8 @@ State:
 - the question;
 - what is inside and outside the system;
 - the system-level outcome that matters;
-- the time window.
+- the time window;
+- the analysis record location, outside it.
 
 Define the system outcome before judging components; local efficiency counts
 only if it improves that outcome or guardrails.
@@ -236,8 +240,10 @@ A useful readiness classification is:
 means identify the **minimum missing signal** needed for the next decision.
 
 Persistent artifacts such as `SYSTEM_MODEL.md`, `system-model.yaml`, evidence
-ledgers, or dashboards are appropriate for important, long-lived, repeatedly
-analyzed systems. They are unnecessary for many investigations.
+ledgers, or dashboards suit important, long-lived systems. Store them in an
+explicit external analysis root, never a bare path in the target; separate
+target findings from the analysis model, ledger, and predictions. They are
+unnecessary for many investigations.
 
 See `references/` for optional templates.
 
