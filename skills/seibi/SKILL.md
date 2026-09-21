@@ -161,8 +161,10 @@ Temporal proximity and correlation generate hypotheses; they do not prove causes
 Before recommending a material intervention, state what the model predicts:
 
 - which system outcome should change; local metrics are supporting signals;
-- direction of change;
-- approximate magnitude, threshold, or regime change if defensible;
+- direction of change against the currently observed value;
+- a proportional magnitude only when the supplied evidence contains the
+  baseline it is measured against, cited together with it; otherwise give the
+  threshold or regime change expected, or direction alone;
 - expected delay or observation window;
 - guardrails that should remain acceptable.
 
@@ -207,7 +209,7 @@ For a proposed experiment specify:
 - hypothesis;
 - smallest useful change, preferably testing whether a candidate constraint
   changes the system outcome;
-- expected result;
+- expected result, as a direction against the current observed value;
 - observation window;
 - primary system outcome;
 - guardrails;
@@ -293,8 +295,10 @@ Keep reports proportional. The outline below is optional. For an active case,
 even a short answer should retain a competing explanation, a distinguishing
 observation, and a bounded recommendation with prediction and guardrails.
 For a non-qualifying request, give direct help without this outline.
-Before returning advice, remove unsupported percentage gains, baselines, and
-duration promises. A chosen observation window is allowed; label assumptions.
+Every prediction returned carries a direction and an observation window; a
+proportional magnitude or a duration promise appears only where the supplied
+evidence contains the measured value it is derived from, cited with it. Label
+assumptions.
 Keep proposed changes conditional on evidence and applicable authorization.
 
 ```markdown
