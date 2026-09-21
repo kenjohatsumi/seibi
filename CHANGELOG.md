@@ -1,5 +1,34 @@
 # Changelog
 
+## v0.3.3-rc.7 — unreleased remediation candidate
+
+Removes the concrete figure from the Predict step's example. rc.6's one
+remaining flagged response read "reopen rate falls from the recorded 18%" on a
+case whose prompt contains no numbers: the model took the figure out of the
+example and presented it as evidence. The example now shows the binding without
+supplying a digit - "reopen rate falls from the rate the supplied log records".
+
+## v0.3.3-rc.6 — unreleased remediation candidate
+
+Scopes rc.5's prediction rule to predictions. The rule governs the prediction;
+stop conditions and rollback triggers are not predictions and keep their
+numbers. Section 7 says so where the stop condition is written, and the
+final-output paragraph repeats it.
+
+One run against v0.3.1, v0.3.2, rc.4 and rc.5 on fresh seeds:
+
+| measure | v0.3.1 | rc.4 | rc.5 | rc.6 |
+| --- | ---: | ---: | ---: | ---: |
+| unsupported numerical promises | 20/50 | 14/50 | 0/50 | 1/50 |
+| stop conditions, live-experiment cases | 27/30 | 29/30 | 22/30 | 27/30 |
+| TSN-3 shadow comparison | 2/10 | 9/10 | 8/10 | 10/10 |
+| TSN-3 control preserved | 0/10 | 9/10 | 5/10 | 8/10 |
+
+rc.6 against v0.3.1 on the target defect is p = 1.2e-06; on stop conditions the
+two are identical. The stop-condition measure excludes TSN-3, where the correct
+answer is a shadow comparison with the live control retained, so no live
+experiment is proposed and no rollback is owed.
+
 ## v0.3.3-rc.5 — unreleased remediation candidate
 
 Replaced the condition on the number with a form for the sentence. The Predict

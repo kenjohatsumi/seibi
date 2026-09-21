@@ -110,13 +110,14 @@ controls where available.
 
 ## Version
 
-Published baseline: **v0.3.1**. Development candidate: **v0.3.3-rc.6**.
+Published baseline: **v0.3.1**. Development candidate: **v0.3.3-rc.7**.
 
 **Release hold:** v0.3.2 failed candidate validation and was not released.
 v0.3.3-rc.2 fixed the assurance defect and made the unsupported-numeric defect
 worse; rc.3 undid that regression and rc.4 did not improve on rc.3; rc.5
 removed the numeric defect but suppressed numerical stop conditions with it.
-rc.6 is further remediation under evaluation, not an official release.
+rc.6 restored them. rc.7 is a candidate under evaluation, not an official
+release.
 
 See [`CHANGELOG.md`](CHANGELOG.md).
 

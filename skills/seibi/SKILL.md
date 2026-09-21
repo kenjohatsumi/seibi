@@ -164,8 +164,8 @@ Before recommending a material intervention, state what the model predicts:
 - write the prediction as the observable, the direction it moves, and the
   window: "first-pass acceptance rises over two review cycles";
 - a number enters a prediction only by quoting one the supplied evidence
-  states, in the same sentence as its source: "reopen rate falls from the
-  recorded 18%". A figure the evidence does not contain stays out of the
+  states, in the same sentence as its source: "reopen rate falls from the rate
+  the supplied log records". A figure the evidence does not contain stays out of the
   prediction in every form - floor, ceiling, range, target or estimate, and
   however it is labelled. This governs the prediction only: stop conditions and
   rollback triggers are not predictions and keep their numbers;
