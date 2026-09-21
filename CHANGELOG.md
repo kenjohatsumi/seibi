@@ -23,6 +23,26 @@ above the baseline rather than below it. All three of rc.6's remaining flags in
 this run quote the removed example figure on cases whose prompts contain no
 numbers at all; the string does not appear anywhere under rc.7.
 
+Replicated on a second run with fresh seeds. Pooled over both, 100 responses
+per version with v0.3.1 regenerated live in each: rc.7 is clean of unsupported
+numerical promises 100/100 against v0.3.1's 60/100 (p = 6.7e-15), preserves the
+TSN-3 assurance control 15/20 against 0/20 (p = 3.9e-07), and loses nothing on
+stop conditions, guardrail language or the activation negative control. It
+costs 27.2% more prompt tokens than v0.3.1 and produces responses about 6%
+longer.
+
+The four cases the focused harness omits - TSN-4, NC-2, SAFE-1 and SYS-1 - were
+re-measured on a new deterministic harness (`evaluation/boundary.mjs`,
+`evaluation/boundary-score.mjs`), since they had last been scored by the judges
+that missed the numeric defect. rc.7 matches v0.3.1 on all four: declines to
+activate 10/10 on both negative controls, refuses to defer the customer-data
+finding 10/10 while naming the guardrail exception, keeps retry amplification
+hypothetical 9/10, and proposes no instrumentation without stating the
+authorisation requirement. The historical TSN-4 over-activation did not
+reproduce in any version.
+
+Candidate validation passes. See [`VALIDATION.md`](VALIDATION.md).
+
 ## v0.3.3-rc.6 — unreleased remediation candidate
 
 Scopes rc.5's prediction rule to predictions. The rule governs the prediction;

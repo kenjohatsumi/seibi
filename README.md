@@ -110,14 +110,21 @@ controls where available.
 
 ## Version
 
-Published baseline: **v0.3.1**. Development candidate: **v0.3.3-rc.7**.
+Published baseline: **v0.3.1**. Release candidate: **v0.3.3-rc.7**, validated,
+not yet released.
 
-**Release hold:** v0.3.2 failed candidate validation and was not released.
-v0.3.3-rc.2 fixed the assurance defect and made the unsupported-numeric defect
-worse; rc.3 undid that regression and rc.4 did not improve on rc.3; rc.5
-removed the numeric defect but suppressed numerical stop conditions with it.
-rc.6 restored them. rc.7 is a candidate under evaluation, not an official
-release.
+**Release hold history:** v0.3.2 failed candidate validation and was not
+released. v0.3.3-rc.2 fixed the assurance defect and made the
+unsupported-numeric defect worse; rc.3 undid that regression and rc.4 did not
+improve on rc.3; rc.5 removed the numeric defect but suppressed numerical stop
+conditions with it; rc.6 restored them and left one residual case; rc.7 closed
+it.
+
+rc.7 passes candidate validation on all nine cases with both release-blocking
+defects resolved and no regression on any control, at a measured cost of 27.2%
+more prompt tokens than v0.3.1. See [`VALIDATION.md`](VALIDATION.md) and
+[`RETUNING_EVALUATION.md`](RETUNING_EVALUATION.md). It remains a candidate
+until released.
 
 See [`CHANGELOG.md`](CHANGELOG.md).
 
