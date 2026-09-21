@@ -86,6 +86,14 @@ and re-tested.
 
 ## Remediation validation — candidate v0.3.3-rc.2
 
+**Superseded.** rc.2 is retained below as the record of what it was tested for
+and what it failed. The v0.3.3 line has since moved through rc.3 to rc.7 and is
+evaluated on a different, deterministic harness; see the focused re-evaluation
+sections of [`RETUNING_EVALUATION.md`](RETUNING_EVALUATION.md). In particular
+the closing paragraph of this section — that no version may claim an
+improvement in the unsupported-numeric defect — was a statement about the
+nine-case, two-seed suite's power, and no longer holds on the focused harness.
+
 **Version test status: PASSES THE AUTOMATED GATE, FAILS DIRECT REVIEW —
 UNRELEASED.** Row results below are forward behaviour from nine fixed cases,
 two seeds, and two blinded judges, recorded in
