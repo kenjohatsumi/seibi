@@ -26,6 +26,8 @@ Seibi guides an agent to:
 - make predictions before interventions;
 - recommend bounded experiments with guardrails and rollback;
 - measure observed results and update the system model;
+- identify recurring process activity that consumes effort without
+  proportionately advancing the system outcome;
 - keep analysis records outside the system under analysis;
 - avoid unauthorized production changes and unnecessary data collection.
 
@@ -42,7 +44,9 @@ Use Seibi for recurring or interacting system behaviour, such as:
 - quality/rework feedback;
 - multiple components whose interactions produce an outcome;
 - repeated local fixes that fail structurally;
-- delayed or second-order effects.
+- delayed or second-order effects;
+- recurring process rework, handoffs, duplicated work, or scope diversion that
+  consume attention without proportional system progress.
 
 Do not invoke Seibi merely for:
 
@@ -50,6 +54,11 @@ Do not invoke Seibi merely for:
 - a one-off incident;
 - summarizing a dashboard;
 - routine tuning with no evidence of interacting behaviour.
+
+Task signal-to-noise is a focused lens within this boundary, not a productivity
+or task-management method. Preserve useful adjacent findings, but discover
+broadly and act narrowly: do not expand the active scope unless completion or
+a guardrail is materially affected.
 
 ## Safety model
 
@@ -101,7 +110,7 @@ controls where available.
 
 ## Version
 
-Current release: **v0.3.1**
+Current release: **v0.3.2**
 
 See [`CHANGELOG.md`](CHANGELOG.md).
 

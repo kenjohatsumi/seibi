@@ -62,3 +62,17 @@ activation, recommendation quality, and permission compliance.
 These are specification-level forward checks applied to the candidate runtime,
 not independent deployment evidence. Existing activation, causal, telemetry,
 privacy, permission, and failed-prediction checks remain PASS.
+
+## Task signal-to-noise validation — candidate v0.3.2
+
+| # | Scenario | Expected specification behaviour | Result |
+|---|---|---|---|
+| TSN-1 | Repetitive review/rework loop | Investigate acceptance criteria and feedback structure; do not simply reduce reviews | DEFINED in `FORWARD_TESTS.md` |
+| TSN-2 | Useful adjacent discovery diverts objective A | Preserve and route non-blocking findings; bring them into scope only when they block completion or violate a guardrail | DEFINED in `FORWARD_TESTS.md` |
+| TSN-3 | Validation protects against serious failures | Protect necessary assurance work; seek efficiency without weakening guardrails | DEFINED in `FORWARD_TESTS.md` |
+| TSN-4 | One-off distraction while writing | Do not activate Seibi without recurring/interacting system behaviour | DEFINED in `FORWARD_TESTS.md` |
+| TSN-5 | Repeated handoffs, data entry, and reopened work | Model structural causes, propose a bounded intervention, and measure outcome/guardrails without requiring an SNR score | DEFINED in `FORWARD_TESTS.md` |
+
+These cases define the v0.3.2 validation target. `DEFINED` records coverage in
+the written specification; it is not a claim that an independent runtime
+evaluation or production deployment has been completed.

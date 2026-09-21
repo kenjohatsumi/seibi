@@ -1,5 +1,31 @@
 # Changelog
 
+## v0.3.2 — 2026-09-21
+
+Added task signal-to-noise as a focused lens for recurring process behaviour.
+The retune distinguishes outcome-advancing work and necessary guardrail work
+from repeated effort that consumes attention without proportional progress. It
+keeps task SNR task-relative, does not require a numerical score, preserves
+non-blocking adjacent findings without expanding active scope, and directs
+analysis toward the structural causes of rework, handoffs, duplicated work,
+context switching, and scope diversion.
+
+### Changed
+- extended activation, boundary, observation, and causal modelling guidance
+  for recurring low-progress process behaviour;
+- added the rule **Discover broadly; act narrowly** to leverage and scope
+  handling;
+- added underlying process signals and guardrail protection to measurement
+  guidance without introducing mandatory instrumentation or productivity
+  dashboards;
+- updated README capability and release version.
+
+### Tests
+Added five v0.3.2 forward-test cases covering repetitive review loops,
+adjacent discovery, necessary safety work, one-off focus problems, and
+repetitive operational workflows. These are specification-level cases and
+must not be represented as independent deployment evidence.
+
 ## v0.3.1 — 2026-09-18
 
 Corrected the cost evidence for the v0.3.0 retune. Removed the synthetic

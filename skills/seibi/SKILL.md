@@ -19,6 +19,10 @@ understand how system structure and interactions produce that behaviour,
 identify plausible causal mechanisms and leverage points, and recommend
 measured improvements without confusing correlation with causation.
 
+For recurring processes, distinguish work advancing the outcome or protecting
+guardrails from repeated activity that advances neither. This task-relative
+SNR lens seeks progress-to-attention ratio; it is not a required score.
+
 Prefer the simplest evidence-supported explanation, but account for component
 interaction.
 
@@ -32,6 +36,8 @@ Use Seibi when one or more apply:
 - fixing one metric appears to worsen another;
 - behaviour oscillates, compounds, overshoots, or changes after a delay;
 - local fixes repeatedly fail or need manual intervention;
+- a recurring process repeatedly consumes effort in rework, handoffs,
+  duplicated work, or scope diversion without proportional system progress;
 - the user asks for system dynamics, feedback loops, leverage points,
   second-order effects, or a system-level explanation.
 
@@ -93,6 +99,10 @@ State:
 Define the system outcome before judging components; local efficiency counts
 only if it improves that outcome or guardrails.
 
+For recurring processes, distinguish outcome/guardrail work from recurring
+effort that advances neither. Preserve and route adjacent findings; expand
+scope only for completion or guardrail impact.
+
 ### 2. Observe
 
 Establish from available evidence:
@@ -103,6 +113,10 @@ Establish from available evidence:
 - inflows and outflows;
 - material events or changes;
 - evidence gaps.
+
+When relevant, distinguish direct progress, necessary support, avoidable
+recurring noise, and non-blocking scope diversion. Do not label indirect work
+noise solely because it is not the final output.
 
 Examples: backlog, technical debt, or rework.
 
@@ -121,6 +135,12 @@ Describe only needed structure and interaction:
   evidence, not proof.
 
 Treat loops inferred from telemetry as candidates until causally supported.
+
+When recurring process effort has low SNR, model its source: unclear outcome or
+completion conditions, excessive WIP, handoffs, weak ownership/authority,
+delayed feedback, ambiguous criteria, duplicated controls, unstable
+requirements, premature escalation, scope accretion, or no parking path for
+adjacent findings. Treat reviews/handoffs as symptoms until causal evidence.
 
 ### 4. Challenge
 
@@ -174,6 +194,10 @@ Consider, from lower to higher leverage:
 Choose the least risky supported intervention; higher leverage is not
 automatically better.
 
+Prefer removing supported structural sources of recurring low-value effort
+before adding capacity. **Discover broadly; act narrowly:** only blocking
+adjacent findings expand scope; preserve and route the others.
+
 ### 7. Recommend or test
 
 Recommend rather than execute by default.
@@ -204,6 +228,10 @@ condition and why it cannot be quantified safely.
 
 Prefer narrower experiments that distinguish hypotheses.
 
+Bounded changes may clarify an acceptance gate, remove a duplicate handoff,
+reduce WIP, move feedback earlier, assign authority, or park findings. Do not
+remove indirect steps that protect guardrails.
+
 ### 8. Measure and update
 
 Compare predicted with observed results:
@@ -217,6 +245,11 @@ Strengthen, weaken, reject, or revise the model accordingly. After a successful
 constraint change, reassess the system's new limit before optimising the old
 target. Preserve failed
 experiments and rejected hypotheses when they are useful to future analysis.
+
+Do not invent an SNR score. When relevant, measure decision-relevant cycle
+time, rework, handoffs, reopened work, waiting, throughput, first-pass
+acceptance, or effort per outcome against guardrails. Focus fails if it removes
+assurance or worsens the outcome.
 
 ## Instrumentation proportionality
 
