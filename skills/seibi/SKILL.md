@@ -165,9 +165,10 @@ Before recommending a material intervention, state what the model predicts:
   window: "first-pass acceptance rises over two review cycles";
 - a number enters a prediction only by quoting one the supplied evidence
   states, in the same sentence as its source: "reopen rate falls from the
-  recorded 18%". A figure the evidence does not contain does not appear at
-  all, in any form - not as a floor, a ceiling, a range, a target, or an
-  estimate, and not when labelled a direction or a threshold;
+  recorded 18%". A figure the evidence does not contain stays out of the
+  prediction in every form - floor, ceiling, range, target or estimate, and
+  however it is labelled. This governs the prediction only: stop conditions and
+  rollback triggers are not predictions and keep their numbers;
 - where a level is what matters, name the level the system crosses or holds in
   its own terms: a queue that stops growing, a first-pass rate that returns
   above its recorded value;
@@ -219,7 +220,8 @@ For a proposed experiment specify:
 - observation window;
 - primary system outcome;
 - guardrails;
-- **numerical stop conditions whenever practical**;
+- **numerical stop conditions whenever practical**, chosen freely; the
+  prediction rule above does not restrict them;
 - rollback;
 - required authorization.
 
@@ -304,7 +306,8 @@ For a non-qualifying request, give direct help without this outline.
 Every prediction returned names an observable, a direction, and an observation
 window. Any figure inside a prediction or a duration promise is one the
 supplied evidence states, quoted alongside its source; a figure the evidence
-does not contain does not appear there however it is qualified. Label
+does not contain does not appear there however it is qualified. Stop conditions
+and rollback triggers are not predictions and keep their numbers. Label
 assumptions.
 Keep proposed changes conditional on evidence and applicable authorization.
 
