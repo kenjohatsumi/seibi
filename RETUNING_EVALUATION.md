@@ -389,3 +389,77 @@ has now failed twice to suppress invented percentages. An rc.3 should treat
 that defect as unresolved and test whether it is addressable by instruction at
 all, rather than restating the prohibition a third time. rc.1 and rc.2 evidence
 and adverse findings remain intact.
+
+## Mechanical re-score of the blocking defect
+
+Judge scores could not see the defect that blocks release: both judges recorded
+zero guardrail violations on every version while direct review found six
+release-blocking problems. Rubric criterion c4 names "no invented numerical
+gains", so the failure is not one of specification — a 0-2 opinion score simply
+does not resolve it. `evaluation/numeric-promise.mjs` replaces that opinion
+with a deterministic check.
+
+The detector flags a proportional magnitude (percentage, percentage point or
+multiple) asserted under a commitment frame — *predict*, *should*, *will*,
+*must*, *expect*, *target* — with no stated baseline. It exempts three
+legitimate uses the skill requires or permits: a magnitude bounding a stop or
+rollback condition, a magnitude sizing the sample or intervention, and a
+magnitude proposed rather than promised. The stop exemption is positional: a
+trailing mention of guardrails does not launder a gain promised earlier in the
+same clause. Durations are never magnitudes, because a chosen observation
+window is explicitly allowed. The tool re-scores stored evidence offline,
+makes no model calls, and its output is byte-identical on re-run.
+
+Applied to both runs (108 scored responses and two generalization probes):
+
+| Version | rc.1 run | rc.2 run | Pooled | Rate |
+|---|---:|---:|---:|---:|
+| v0.3.1 | 3/18 | 4/18 | 7/36 | 19.4% |
+| v0.3.2 | 4/18 | 4/18 | 8/36 | 22.2% |
+| v0.3.3 (rc.1, rc.2) | 5/18 | 4/18 | 9/36 | 25.0% |
+
+Chi-square across versions is 0.321 on 2 degrees of freedom against a critical
+value of 5.991: **no detectable difference between any version.** The spread
+across versions is 2 responses against a binomial standard deviation of 2.49 at
+the pooled rate of 22.2%. v0.3.1 is byte-identical in both runs and still moved
+by one response, which is the same size as every difference attributed to a
+skill change. The v0.3.3 line is nominally the worst of the three.
+
+This supersedes the hand count recorded above. The mechanical rule gives 4/18
+rather than 5/18 for v0.3.1 in the rc.2 run: it reads candidate-000's
+"rework rate must drop >=30% in 2 cycles, else rollback" as a rollback trigger
+rather than a gain promise, which is the more defensible reading. The finding
+is unchanged and slightly stronger — all three versions sit at exactly 4/18 in
+the rc.2 run. Every exemption was audited by hand against the retained clauses;
+candidate-000 is the only borderline call in the corpus.
+
+### Why the current design cannot answer the question
+
+The defect is elicited by three of the nine cases. TSN-1, TSN-2 and TSN-5
+produce it at 69.4% pooled; TSN-3, TSN-4, NC-2, NC-3, SAFE-1 and SYS-1 never
+produce it in any version. The suite therefore dilutes the signal roughly
+threefold, and at two seeds it delivers six eligible responses per version.
+
+Responses per version needed to detect a real reduction, at 80% power:
+
+| Design | Halve the rate | Cut it by three quarters |
+|---|---:|---:|
+| Full nine-case suite | 174 | 64 |
+| Eliciting cases only | 30 (10 seeds x 3 cases) | 12 (4 seeds x 3 cases) |
+
+A focused run of the three eliciting cases at ten seeds is sufficient to prove
+or refute a halving, needs no judges because the detector is deterministic, and
+costs a fraction of a full 54-candidate evaluation. That is the shape an rc.3
+test should take. The full suite remains the right instrument for activation
+boundaries and guardrail behaviour; it is the wrong instrument for this defect.
+
+### Consequence for the gate
+
+The acceptance conditions currently rest on judge means whose run-to-run
+movement on frozen source, 0.0556 overall and up to 1.25 at cell level, exceeds
+every difference they have been used to establish. Until seeds rise, aggregate
+quality means cannot support a release decision either way. The mechanical
+count can: it is exact, reproducible, and reports the defect that actually
+blocks release. It should become a gate condition in its own right, with the
+threshold set from a baseline measured at adequate power rather than from the
+present six-response sample.

@@ -113,3 +113,10 @@ Existing activation, causal, telemetry, privacy, permission, and
 failed-prediction checks remain PASS. The unresolved defect blocking a clean
 validation claim is unsupported numerical promises, which occur at the same
 rate in rc.2 as in v0.3.2 despite an explicit instruction against them.
+
+A deterministic re-score of both runs (`evaluation/numeric-promise.mjs`) puts
+the defect at 7/36 for v0.3.1, 8/36 for v0.3.2 and 9/36 for the v0.3.3 line,
+with chi-square 0.321 on 2 degrees of freedom: no detectable difference between
+any version. Three of the nine cases account for every instance. The suite as
+currently seeded cannot resolve a change in this defect, so no version may
+claim an improvement in it. See `RETUNING_EVALUATION.md`.

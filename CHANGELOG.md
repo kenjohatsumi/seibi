@@ -15,6 +15,11 @@ promises against either baseline. The assurance-preservation change is
 supported; the unsupported-numeric change is not. Release hold remains in
 force. See `RETUNING_EVALUATION.md`.
 
+Adds `evaluation/numeric-promise.mjs`, a deterministic offline detector for
+unsupported numerical gain promises. Re-scoring both runs finds no detectable
+difference between any version (chi-square 0.321, 2 df), and shows the nine-case
+suite is underpowered for this defect by roughly an order of magnitude.
+
 ## v0.3.3-rc.1 — unreleased remediation candidate
 
 Explicitly excludes ordinary personal focus requests from systems analysis;
