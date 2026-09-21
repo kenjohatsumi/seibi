@@ -1,5 +1,53 @@
 # Changelog
 
+## v0.3.3-rc.5 — unreleased remediation candidate
+
+Replaced the condition on the number with a form for the sentence. The Predict
+step now says to write the observable, the direction it moves, and the window,
+and that a number enters only by quoting one the supplied evidence states,
+beside its source.
+
+On the target defect this is complete: 0/50 responses flagged, against v0.3.1
+at 16/50 (p = 3.7e-06) and rc.4 at 10/50 (p = 0.0006), within one run.
+
+It overshoots. The absolute phrasing generalised past predictions and took stop
+conditions with it: 24/40 responses state one, against v0.3.1's 37/40
+(p = 0.0006). Adds `evaluation/stop-conditions.mjs`, which neither existing
+scorer could stand in for, so the trade is measured rather than spotted by
+hand.
+
+## v0.3.3-rc.4 — unreleased remediation candidate
+
+Defines a threshold as a level the system crosses or holds, and states that a
+bound on an unmeasured improvement is a magnitude rather than a threshold. This
+closes the wording rc.3 left open, under which the model offered "falls by at
+least 10% (direction-based, not magnitude promise)" as a threshold.
+
+Measured over two runs containing both, rc.4 is indistinguishable from rc.3:
+25/100 against 27/100, stratified p = 0.44. The loophole survives the
+definition. Recorded as tested and ineffective; the wording is kept because it
+is correct, not because it is proven.
+
+## v0.3.3-rc.3 — unreleased remediation candidate
+
+Moves the unsupported-numeric instruction out of the final-output cleanup and
+into the Predict step, and states it as a construction rather than a
+prohibition: give the direction against the observed value, and a proportional
+magnitude only where the supplied evidence contains the baseline it is measured
+against, cited with it.
+
+This reverses the rc.2 regression. Across the three runs containing both,
+stratified by run, chi-square 10.82 on the clean rate, one-tailed p = 0.0005,
+common odds ratio 2.37. Against the published baseline the improvement is not
+established (p = 0.26).
+
+Adds `evaluation/focused.mjs`, a judge-free harness that runs only the cases
+which elicit the defect and spends the budget on seeds, and
+`evaluation/assurance.mjs`, a deterministic classifier for assurance
+preservation. The generator is not reproducible across runs: byte-identical
+v0.3.1 scored 23, 13, 16 and 16 out of 50 on four runs, so every version under
+comparison now appears in every run and confirmation means fresh seeds.
+
 ## v0.3.3-rc.2 — unreleased remediation candidate
 
 Follow-up to rc.1 testing: require a guardrail exception in proposed parking
