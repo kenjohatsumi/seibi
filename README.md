@@ -26,6 +26,8 @@ Seibi guides an agent to:
 - make predictions before interventions;
 - recommend bounded experiments with guardrails and rollback;
 - measure observed results and update the system model;
+- identify recurring process activity that consumes effort without
+  proportionately advancing the system outcome;
 - keep analysis records outside the system under analysis;
 - avoid unauthorized production changes and unnecessary data collection.
 
@@ -42,7 +44,9 @@ Use Seibi for recurring or interacting system behaviour, such as:
 - quality/rework feedback;
 - multiple components whose interactions produce an outcome;
 - repeated local fixes that fail structurally;
-- delayed or second-order effects.
+- delayed or second-order effects;
+- recurring process rework, handoffs, duplicated work, or scope diversion that
+  consume attention without proportional system progress.
 
 Do not invoke Seibi merely for:
 
@@ -50,6 +54,11 @@ Do not invoke Seibi merely for:
 - a one-off incident;
 - summarizing a dashboard;
 - routine tuning with no evidence of interacting behaviour.
+
+Task signal-to-noise is a focused lens within this boundary, not a productivity
+or task-management method. Preserve useful adjacent findings, but discover
+broadly and act narrowly: do not expand the active scope unless completion or
+a guardrail is materially affected.
 
 ## Safety model
 
@@ -101,7 +110,21 @@ controls where available.
 
 ## Version
 
-Current release: **v0.3.1**
+Published baseline: **v0.3.3**. Developed as candidate rc.7 and released
+unchanged.
+
+**Remediation history:** v0.3.2 failed candidate validation and was not
+released. v0.3.3-rc.2 fixed the assurance defect and made the
+unsupported-numeric defect worse; rc.3 undid that regression and rc.4 did not
+improve on rc.3; rc.5 removed the numeric defect but suppressed numerical stop
+conditions with it; rc.6 restored them and left one residual case; rc.7 closed
+it and passed candidate validation on all nine cases with no regression on any
+control, at a measured cost of 27.2% more prompt tokens than v0.3.1. See
+[`VALIDATION.md`](VALIDATION.md) and
+[`RETUNING_EVALUATION.md`](RETUNING_EVALUATION.md).
+
+v0.3.2 was never released; its task signal-to-noise material lives on inside
+v0.3.3.
 
 See [`CHANGELOG.md`](CHANGELOG.md).
 

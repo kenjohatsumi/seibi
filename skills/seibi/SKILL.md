@@ -5,8 +5,8 @@ description: >-
   Analyze recurring, interacting, or system-level behaviour using evidence,
   feedback loops, delays, competing hypotheses, leverage points, and measured
   experiments. Use when outcomes emerge from component interaction or recur
-  over time. Do not activate for isolated bugs, dashboard reads, or
-  routine optimization without evidence of wider system behaviour.
+  over time. Ordinary debugging, dashboard summaries, and personal focus
+  requests do not qualify without evidence of wider system behaviour.
 ---
 
 # Seibi
@@ -24,7 +24,11 @@ interaction.
 
 ## Activate Seibi when
 
-Use Seibi when one or more apply:
+First decide whether a systems investigation is warranted. A request to focus,
+prioritise today's tasks, or finish one report does not qualify merely because
+the user says "keep" or "repeatedly". Give brief direct help in those cases;
+do not construct a system model. Apply the loop when evidence describes a
+recurring process problem or material interactions, for example:
 
 - a failure, bottleneck, backlog, quality problem, or operational pattern recurs;
 - components, agents, teams, queues, incentives, or resources interact and
@@ -32,8 +36,9 @@ Use Seibi when one or more apply:
 - fixing one metric appears to worsen another;
 - behaviour oscillates, compounds, overshoots, or changes after a delay;
 - local fixes repeatedly fail or need manual intervention;
-- the user asks for system dynamics, feedback loops, leverage points,
-  second-order effects, or a system-level explanation.
+- a recurring process repeatedly consumes effort in rework, handoffs,
+  duplicated work, or scope diversion without proportional system progress;
+- a system-level question concerns feedback, delays, or second-order effects.
 
 Do **not** activate merely for:
 
@@ -93,6 +98,10 @@ State:
 Define the system outcome before judging components; local efficiency counts
 only if it improves that outcome or guardrails.
 
+For recurring processes, task signal-to-noise means progress toward this
+outcome per attention consumed. Testing, coordination, and safety work count
+when they protect the outcome or guardrails; useful work elsewhere may not.
+
 ### 2. Observe
 
 Establish from available evidence:
@@ -103,6 +112,10 @@ Establish from available evidence:
 - inflows and outflows;
 - material events or changes;
 - evidence gaps.
+
+When relevant, distinguish direct progress, necessary support, avoidable
+recurring noise, and non-blocking scope diversion. Do not label indirect work
+noise solely because it is not the final output.
 
 Examples: backlog, technical debt, or rework.
 
@@ -121,6 +134,11 @@ Describe only needed structure and interaction:
   evidence, not proof.
 
 Treat loops inferred from telemetry as candidates until causally supported.
+
+For recurring noise, explain its producing structure: ambiguous acceptance
+criteria, delayed feedback, excessive WIP, weak authority, or missing routing.
+Review count alone does not establish redundant review; distinguish disputes
+about criteria from defects the review correctly catches.
 
 ### 4. Challenge
 
@@ -143,8 +161,17 @@ Temporal proximity and correlation generate hypotheses; they do not prove causes
 Before recommending a material intervention, state what the model predicts:
 
 - which system outcome should change; local metrics are supporting signals;
-- direction of change;
-- approximate magnitude, threshold, or regime change if defensible;
+- write the prediction as the observable, the direction it moves, and the
+  window: "first-pass acceptance rises over two review cycles";
+- a number enters a prediction only by quoting one the supplied evidence
+  states, in the same sentence as its source: "reopen rate falls from the rate
+  the supplied log records". A figure the evidence does not contain stays out of the
+  prediction in every form - floor, ceiling, range, target or estimate, and
+  however it is labelled. This governs the prediction only: stop conditions and
+  rollback triggers are not predictions and keep their numbers;
+- where a level is what matters, name the level the system crosses or holds in
+  its own terms: a queue that stops growing, a first-pass rate that returns
+  above its recorded value;
 - expected delay or observation window;
 - guardrails that should remain acceptable.
 
@@ -174,6 +201,12 @@ Consider, from lower to higher leverage:
 Choose the least risky supported intervention; higher leverage is not
 automatically better.
 
+**Discover broadly; act narrowly.** Include adjacent findings that prevent
+completion or threaten a guardrail; preserve and route related non-blocking
+and independent findings. Any proposed parking rule must include that exception;
+never defer a credible threat just because harm has not happened yet.
+Supported removal of structural noise precedes adding effort.
+
 ### 7. Recommend or test
 
 Recommend rather than execute by default.
@@ -183,11 +216,12 @@ For a proposed experiment specify:
 - hypothesis;
 - smallest useful change, preferably testing whether a candidate constraint
   changes the system outcome;
-- expected result;
+- expected result, written in the form the prediction step requires;
 - observation window;
 - primary system outcome;
 - guardrails;
-- **numerical stop conditions whenever practical**;
+- **numerical stop conditions whenever practical**, chosen freely; the
+  prediction rule above does not restrict them;
 - rollback;
 - required authorization.
 
@@ -204,6 +238,12 @@ condition and why it cannot be quantified safely.
 
 Prefer narrower experiments that distinguish hypotheses.
 
+For process changes, test one rule or handoff against a plausible alternative;
+predict accepted completion or rework over a stated window while preserving
+assurance. Test validation efficiency on historical/synthetic cases or in
+shadow mode with the existing control retained; do not propose live removal
+of serious-failure protection as a way to discover its value.
+
 ### 8. Measure and update
 
 Compare predicted with observed results:
@@ -217,6 +257,11 @@ Strengthen, weaken, reject, or revise the model accordingly. After a successful
 constraint change, reassess the system's new limit before optimising the old
 target. Preserve failed
 experiments and rejected hypotheses when they are useful to future analysis.
+
+Do not invent an SNR score. When relevant, measure decision-relevant cycle
+time, rework, handoffs, reopened work, waiting, throughput, first-pass
+acceptance, or effort per outcome against guardrails. Focus fails if it removes
+assurance or worsens the outcome.
 
 ## Instrumentation proportionality
 
@@ -254,7 +299,17 @@ Never raise confidence merely because an explanation sounds coherent.
 
 ## Final output
 
-Keep reports proportional.
+Keep reports proportional. The outline below is optional. For an active case,
+even a short answer should retain a competing explanation, a distinguishing
+observation, and a bounded recommendation with prediction and guardrails.
+For a non-qualifying request, give direct help without this outline.
+Every prediction returned names an observable, a direction, and an observation
+window. Any figure inside a prediction or a duration promise is one the
+supplied evidence states, quoted alongside its source; a figure the evidence
+does not contain does not appear there however it is qualified. Stop conditions
+and rollback triggers are not predictions and keep their numbers. Label
+assumptions.
+Keep proposed changes conditional on evidence and applicable authorization.
 
 ```markdown
 # Seibi Analysis
@@ -282,7 +337,7 @@ The smallest justified next action. State whether it is read-only,
 recommended-only, or requires explicit authorization.
 
 ## Prediction and measurement
-Expected result, observation window, guardrails, stop conditions, and rollback.
+Expected direction, observation window, guardrails, stop conditions, and rollback.
 
 ## Confidence and open questions
 What is known, uncertain, and worth learning next?

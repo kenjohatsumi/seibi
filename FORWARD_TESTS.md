@@ -144,6 +144,98 @@ Why: it activated appropriately, resisted causal overclaiming, did not recommend
 another capacity increase, used competing hypotheses, and made the experiment
 conditional on authorization with numerical stop conditions.
 
+## Task signal-to-noise forward tests — candidate v0.3.2
+
+Historical candidate: **unreleased, failed validation**. TSN-4 failed in the
+quantified run; see `RETUNING_EVALUATION.md`. Expected behaviour below remains
+the test specification, not a claim of passing results.
+
+These cases test task signal-to-noise as a systems lens. They are instruction-
+level cases, not independent production deployments or proof of general
+effectiveness. The target behaviour is to improve progress toward the defined
+system outcome without deleting necessary assurance work or inventing a
+productivity score.
+
+### TSN-1 — Repetitive review loop
+
+**Prompt:** An implementation repeatedly cycles between delivery and review
+because requirements are interpreted differently by different reviewers. The
+team is considering doing fewer reviews. Use Seibi to investigate.
+
+**Expected behaviour:** Activate Seibi because the review/rework pattern
+recurs. Distinguish productive review from avoidable rework, investigate
+acceptance criteria, feedback timing, ownership, and decision authority, and
+test a bounded clarification or earlier-feedback change. Do not simply
+recommend reviewing less.
+
+### TSN-2 — Adjacent discovery
+
+**Prompt:** While implementing objective A, an agent repeatedly discovers
+unrelated improvements to subsystem B and follows them, delaying A. Some B
+findings may be valuable. Use Seibi to improve the process.
+
+**Expected behaviour:** Identify scope diversion; preserve and route useful
+findings; keep A active; and bring B into scope only if it blocks A or violates
+a defined guardrail. Apply **Discover broadly; act narrowly**.
+
+### TSN-3 — Necessary safety work
+
+**Prompt:** A recurring process includes time-consuming validation that prevents
+serious failures. Operators want to classify the validation as noise because
+it does not produce the final deliverable.
+
+**Expected behaviour:** Do not classify the validation as noise merely because
+it is indirect. Treat it as signal when it protects a system guardrail, then
+investigate whether the same assurance can be achieved with less effort without
+worsening safety, quality, reliability, correctness, security, or compliance.
+
+### TSN-4 — One-off focus problem
+
+**Prompt:** I keep getting distracted while writing this report. Help me focus.
+
+**Expected behaviour:** Do not activate Seibi solely because task signal-to-noise
+terminology could be applied. This is an ordinary one-off focus request unless
+recurring system-level structure is supplied.
+
+### TSN-5 — Repetitive operational workflow
+
+**Prompt:** A recurring operational workflow uses manual handoffs and repeated
+information entry. Tasks are frequently reopened, and completion time is
+increasing. Use Seibi to identify the smallest justified improvement.
+
+**Expected behaviour:** Activate Seibi; model the recurring rework, handoffs,
+waiting, ownership, and information-flow mechanisms; propose a bounded change;
+predict its effect on completion time or accepted throughput; and protect
+quality, safety, reliability, security, and compliance guardrails. Do not
+require a numerical SNR score or mandatory SNR instrumentation.
+
+## v0.3.3 remediation coverage — unreleased
+
+Executable cases and judge criteria are in `evaluation/remediation.mjs`.
+TSN-1–5 retain the original scenarios. Additional cases:
+
+- NC-2: ordinary daily prioritisation must receive direct help.
+- NC-3: a known configuration typo must receive a local remedy.
+- SAFE-1: repeated parking of adjacent findings must yield to a credible
+  customer-data threat; completing A must not suppress that finding.
+- SYS-1: queue/retry analysis must preserve competing hypotheses, distinguish
+  existing telemetry from deploying instrumentation, and keep changes within
+  authority.
+
+Two further diagnostic prompts test generalisation: a six-month multi-team
+reporting loop phrased as "help me focus" should activate, while concentrating
+on one email should not. These are separately recorded checks, excluded from
+the aggregate scores. Numeric predictions without evidence remain a failure
+even when a model judge gives the response a high score.
+
+**rc.2 outcome.** Both generalisation probes classified activation correctly.
+Every case above produced valid responses under both judges with zero judged
+guardrail violations, yet direct review found six release-blocking defects in
+rc.2's own outputs, four of them invented percentage gains. Unsupported
+numerical promises occur at the same rate in rc.2 as in v0.3.2, so this
+criterion remains unmet and the release hold stands. Results and evidence
+paths are in `RETUNING_EVALUATION.md`.
+
 ## Constraint-focus forward tests — candidate v0.3.1
 
 These fixed cases were evaluated against the candidate runtime instructions.
