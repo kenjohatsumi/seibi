@@ -42,7 +42,7 @@ authorisation requirement. The historical TSN-4 over-activation did not
 reproduce in any version.
 
 Candidate validation passed on all nine cases as rc.7; released unchanged
-as v0.3.3. See [`VALIDATION.md`](VALIDATION.md).
+as v0.3.3. See [`VALIDATION.md`](evidence/history/VALIDATION.md).
 
 ## v0.3.3-rc.6 — unreleased remediation candidate
 
@@ -170,7 +170,7 @@ repetitive operational workflows. A two-judge quantified comparison scored
 v0.3.1 at 32.0/40 (80.0%) and v0.3.2 at 31.0/40 (77.5%); it does not support
 claiming a performance improvement. TSN-4, the one-off focus negative control,
 failed in both versions through over-activation and remains an open boundary
-defect. See [`RETUNING_EVALUATION.md`](RETUNING_EVALUATION.md).
+defect. See [`RETUNING_EVALUATION.md`](evidence/history/RETUNING_EVALUATION.md).
 
 ## v0.3.1 — 2026-09-18
 
@@ -199,8 +199,8 @@ constraint hypotheses, analysis-record containment, expensive-flow priority,
 and negative-control behaviour. The Jev-assisted two-pass rubric recorded
 +0.85 percentage points on target reasoning, +4.24 points on negative controls,
 and +70.50 points on containment. See
-[`FORWARD_TESTS.md`](FORWARD_TESTS.md),
-[`VALIDATION.md`](VALIDATION.md), and [`RETUNING_EVALUATION.md`](RETUNING_EVALUATION.md).
+[`FORWARD_TESTS.md`](evidence/history/FORWARD_TESTS.md),
+[`VALIDATION.md`](evidence/history/VALIDATION.md), and [`RETUNING_EVALUATION.md`](evidence/history/RETUNING_EVALUATION.md).
 
 ### Status
 
@@ -212,7 +212,7 @@ fell 141 bytes (-1.10%) over v0.2.0.
 Conceptual retuning: recognizes interaction dynamics, nonlinearity, and
 state-dependence alongside the existing stocks/flows/feedback model, without
 expanding into general complexity science. Evaluated quantitatively against
-v0.1.0 before release; see [`RETUNING_EVALUATION.md`](RETUNING_EVALUATION.md).
+v0.1.0 before release; see [`RETUNING_EVALUATION.md`](evidence/history/RETUNING_EVALUATION.md).
 
 ### Changed
 - opening definition, activation criteria, and MODEL/CHALLENGE/PREDICT/FIND
@@ -241,7 +241,7 @@ v0.1.0 before release; see [`RETUNING_EVALUATION.md`](RETUNING_EVALUATION.md).
 ### Tests
 Evaluated against five forward-test scenarios run on both v0.1.0 and v0.2.0
 (three targeting the retuned reasoning, two negative controls). Full method
-and results in [`RETUNING_EVALUATION.md`](RETUNING_EVALUATION.md). Summary:
+and results in [`RETUNING_EVALUATION.md`](evidence/history/RETUNING_EVALUATION.md). Summary:
 target-reasoning rubric score improved from 14/24 to 21/24 with no regression
 on either negative control (12/12 on both versions).
 

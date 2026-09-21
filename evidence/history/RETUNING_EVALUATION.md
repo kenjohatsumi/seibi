@@ -1,5 +1,7 @@
 # v0.1.0 → v0.2.0 Retuning Evaluation
 
+*Historical record, preserved unchanged. For current testing guidance, see [`docs/TESTING.md`](../../docs/TESTING.md).*
+
 This records the test process and results used to evaluate the conceptual
 retuning of Seibi (nonlinear interaction, emergence, self-organization, and
 state-dependence framing added alongside the existing stocks/flows/feedback

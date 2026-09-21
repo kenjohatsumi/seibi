@@ -1,5 +1,7 @@
 # Seibi Specification and Rubric Validation
 
+*Historical record, preserved unchanged. For the current release's validation status, see [`docs/VALIDATION.md`](../../docs/VALIDATION.md).*
+
 These checks evaluate whether the written skill specification contains the intended activation rules, causal restraint, instrumentation proportionality, privacy safeguards, and production-permission boundaries.
 
 **Important:** `PASS` below means the specification/rubric condition is present and internally consistent. It does **not** mean the behaviour has been proven in a real deployment.

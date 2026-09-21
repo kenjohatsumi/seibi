@@ -1,5 +1,7 @@
 # Seibi Forward Tests
 
+*Historical record, preserved unchanged. For current testing guidance, see [`docs/TESTING.md`](../../docs/TESTING.md).*
+
 These are recorded forward tests of Seibi instructions using realistic prompts.
 Unlike `VALIDATION.md`, they record the analysis that the method produced for
 each prompt.
