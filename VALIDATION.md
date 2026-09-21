@@ -67,12 +67,13 @@ privacy, permission, and failed-prediction checks remain PASS.
 
 | # | Scenario | Expected specification behaviour | Result |
 |---|---|---|---|
-| TSN-1 | Repetitive review/rework loop | Investigate acceptance criteria and feedback structure; do not simply reduce reviews | DEFINED in `FORWARD_TESTS.md` |
-| TSN-2 | Useful adjacent discovery diverts objective A | Preserve and route non-blocking findings; bring them into scope only when they block completion or violate a guardrail | DEFINED in `FORWARD_TESTS.md` |
-| TSN-3 | Validation protects against serious failures | Protect necessary assurance work; seek efficiency without weakening guardrails | DEFINED in `FORWARD_TESTS.md` |
-| TSN-4 | One-off distraction while writing | Do not activate Seibi without recurring/interacting system behaviour | DEFINED in `FORWARD_TESTS.md` |
-| TSN-5 | Repeated handoffs, data entry, and reopened work | Model structural causes, propose a bounded intervention, and measure outcome/guardrails without requiring an SNR score | DEFINED in `FORWARD_TESTS.md` |
+| TSN-1 | Repetitive review/rework loop | Investigate acceptance criteria and feedback structure; do not simply reduce reviews | PASS in paired forward run |
+| TSN-2 | Useful adjacent discovery diverts objective A | Preserve and route non-blocking findings; bring them into scope only when they block completion or violate a guardrail | PASS in paired forward run |
+| TSN-3 | Validation protects against serious failures | Protect necessary assurance work; seek efficiency without weakening guardrails | PASS in paired forward run |
+| TSN-4 | One-off distraction while writing | Do not activate Seibi without recurring/interacting system behaviour | PASS in paired forward run |
+| TSN-5 | Repeated handoffs, data entry, and reopened work | Model structural causes, propose a bounded intervention, and measure outcome/guardrails without requiring an SNR score | PASS in paired forward run |
 
-These cases define the v0.3.2 validation target. `DEFINED` records coverage in
-the written specification; it is not a claim that an independent runtime
-evaluation or production deployment has been completed.
+The paired run used the same model, temperature, seed, and compact response
+schema for both versions. Results are instruction-level forward evidence, not
+a claim of independent production effectiveness; full method and limitations
+are recorded in [`RETUNING_EVALUATION.md`](RETUNING_EVALUATION.md).

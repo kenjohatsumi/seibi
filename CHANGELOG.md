@@ -23,8 +23,10 @@ context switching, and scope diversion.
 ### Tests
 Added five v0.3.2 forward-test cases covering repetitive review loops,
 adjacent discovery, necessary safety work, one-off focus problems, and
-repetitive operational workflows. These are specification-level cases and
-must not be represented as independent deployment evidence.
+repetitive operational workflows. A matched before/after run preserved 5/5
+activation fidelity and showed no observed guardrail regression; it remains
+instruction-level evidence, not independent deployment evidence. See
+[`RETUNING_EVALUATION.md`](RETUNING_EVALUATION.md).
 
 ## v0.3.1 — 2026-09-18
 

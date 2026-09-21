@@ -135,3 +135,44 @@ was beneficial.
 These results support closing the defect only after the fix is published and
 the forward containment check is retained. They do not establish production
 effectiveness or justify claiming a broad optimisation or cost improvement.
+
+## v0.3.1 → v0.3.2 task signal-to-noise evaluation
+
+This paired forward test evaluated the task signal-to-noise integration from
+the v0.3.2 brief. Five fixed scenarios were run against both `SKILL.md`
+versions, one version per fresh request, using the same `glm-5.3-flash:cloud`
+model, temperature 0, seed `20260921`, and a 700-token generation ceiling.
+The compact prompt required the same four decision areas from each run:
+activation, outcome/guardrails, structure/competing hypothesis, and smallest
+intervention/prediction. The runs were read for behavioural outcomes, not
+scored as production evidence.
+
+| Case | v0.3.1 before | v0.3.2 after | Observed change |
+|---|---|---|---|
+| TSN-1 review loop | Activated; identified ambiguous requirements, review feedback, and the risk of reducing a guardrail | Activated; explicitly classified review churn as low-SNR rework and named acceptance criteria, authority, and delayed feedback as sources | More direct task-SNR and guardrail framing; same causal direction |
+| TSN-2 adjacent discovery | Activated; identified attention diversion, a missing parking path, and the need to preserve B findings | Activated; explicitly applied **Discover broadly; act narrowly**, classified blocking scope expansion, and proposed capture/classify/route | Clearer scope-routing rule and falsifiable guardrails |
+| TSN-3 necessary validation | Activated; treated validation as protective work and considered cheaper assurance | Activated; explicitly distinguished guardrail work from noise and rejected deliverable-only classification | No safety regression; sharper task-relative definition |
+| TSN-4 one-off focus | Correctly did not activate Seibi; gave a direct local rationale | Correctly did not activate Seibi; retained the same negative control | No activation regression |
+| TSN-5 operational workflow | Activated; modelled handoff/re-entry rework and proposed a shared record or checklist | Activated; retained the same model and explicitly identified duplicated work, delayed feedback, and WIP as low-SNR mechanisms | More explicit process-friction lens; same bounded intervention family |
+
+### Paired observations
+
+- Activation fidelity: **5/5 correct before, 5/5 correct after**. TSN-4
+  remained a negative control.
+- Guardrail protection: present in both versions for the validation and review
+  cases; v0.3.2 made the rule explicit rather than relying only on general
+  system-outcome reasoning.
+- Scope discipline: both versions preserved useful adjacent findings in TSN-2;
+  v0.3.2 made the blocking versus non-blocking routing rule explicit.
+- Structural reasoning: both versions identified plausible feedback, delay,
+  rework, or attention-allocation mechanisms. The retune improved vocabulary
+  and classification more than it changed the underlying causal conclusions.
+
+### Limits
+
+This is a small paired forward test, not a statistically powered study. The
+model sometimes repeated instruction text and some outputs reached the token
+ceiling; no independent judge scored the full outputs. The results support the
+claim that v0.3.2 changes the intended reasoning emphasis without an observed
+activation or guardrail regression in these cases. They do not establish
+production effectiveness, lower cost, or general task-management performance.
