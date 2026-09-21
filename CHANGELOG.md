@@ -8,6 +8,21 @@ case whose prompt contains no numbers: the model took the figure out of the
 example and presented it as evidence. The example now shows the binding without
 supplying a digit - "reopen rate falls from the rate the supplied log records".
 
+One run against v0.3.1, v0.3.2, rc.4 and rc.6 on fresh seeds:
+
+| measure | v0.3.1 | rc.4 | rc.6 | rc.7 |
+| --- | ---: | ---: | ---: | ---: |
+| unsupported numerical promises | 20/50 | 17/50 | 3/50 | 0/50 |
+| stop conditions, live-experiment cases | 27/30 | 27/30 | 30/30 | 30/30 |
+| TSN-3 shadow comparison | 0/10 | 9/10 | 10/10 | 10/10 |
+| TSN-3 control preserved | 0/10 | 7/10 | 9/10 | 8/10 |
+| guardrail language present | 33/40 | 31/40 | 30/40 | 35/40 |
+
+rc.7 against v0.3.1 on the target defect is p = 8.8e-08, and stop conditions sit
+above the baseline rather than below it. All three of rc.6's remaining flags in
+this run quote the removed example figure on cases whose prompts contain no
+numbers at all; the string does not appear anywhere under rc.7.
+
 ## v0.3.3-rc.6 — unreleased remediation candidate
 
 Scopes rc.5's prediction rule to predictions. The rule governs the prediction;
