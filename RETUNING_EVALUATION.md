@@ -684,3 +684,44 @@ wrapped around that example says a number in a prediction comes from the
 evidence — so the copied figure arrives pre-labelled as evidence. rc.7 removes
 the digit and keeps the binding: "reopen rate falls from the rate the supplied
 log records".
+
+## Focused re-evaluation: rc.7
+
+Run G, fresh seeds, with v0.3.1, v0.3.2, rc.4 and rc.6 regenerated live
+alongside rc.7. Five cases, ten seeds, 50 responses per version, none invalid.
+
+| measure | v0.3.1 | v0.3.2 | rc.4 | rc.6 | rc.7 |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| unsupported numerical promises | 20/50 | 17/50 | 17/50 | 3/50 | **0/50** |
+| stop conditions, live-experiment cases | 27/30 | 29/30 | 27/30 | **30/30** | 30/30 |
+| numerical stop conditions | 26 | 17 | 11 | 6 | 7 |
+| TSN-3 shadow comparison | 0/10 | 1/10 | 9/10 | 10/10 | 10/10 |
+| TSN-3 control preserved | 0/10 | 1/10 | 7/10 | 9/10 | 8/10 |
+| NC-3 explicit non-activation | 10/10 | 10/10 | 10/10 | 10/10 | 10/10 |
+| guardrail language present | 33/40 | 33/40 | 31/40 | 30/40 | **35/40** |
+| mean response words | 180 | 168 | 181 | 177 | 191 |
+
+rc.7 against v0.3.1 on the target defect is 50/50 clean against 30/50, Fisher
+one-tailed p = 8.8e-08. On stop conditions rc.7 is above v0.3.1 rather than
+below it, so there is no trade left to price.
+
+### The example was the whole of the residual defect
+
+rc.6's three flagged responses in this run are:
+
+- "first-pass acceptance rises from the recorded 18% within two review cycles"
+  (TSN-1);
+- "reopen rate decreases from the recorded baseline (e.g., 18%) within two
+  review cycles" (TSN-5);
+- "rework rate (recorded 18%) falls within two cycles if H1 dominates" (TSN-1).
+
+Neither TSN-1 nor TSN-5 contains a number anywhere in its prompt. All three
+figures are the skill's own example, restated as evidence. Searching the run
+for the string "recorded 18" returns exactly those responses and nothing under
+rc.7, where the example no longer carries a digit.
+
+Counted alone, 0/50 against 3/50 is p = 0.12 and proves little. The mechanism is
+what carries the finding: every instance was a verbatim copy of one removable
+string, and removing it removed every instance. An example inside a rule about
+sourcing is read as a source.
+
