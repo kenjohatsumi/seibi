@@ -138,6 +138,10 @@ effectiveness or justify claiming a broad optimisation or cost improvement.
 
 ## v0.3.1 → v0.3.2 task signal-to-noise quantified evaluation
 
+**Version test status: FAILED CANDIDATE VALIDATION — UNRELEASED.**
+Do not proceed with an official release from these results.
+The numbers below are the historical exploratory run, not a release gate.
+
 Five fixed TSN scenarios were run against both `SKILL.md` versions, one
 version per fresh request. Candidate responses used the same
 `deepseek-v4-flash:cloud` model, temperature 0, seed `20260925`, JSON response
@@ -161,8 +165,10 @@ version. This is a forward quality test, not production evidence.
 The TSN-4 negative control failed in both versions: the candidate responses
 over-activated full Seibi for the ordinary focus request. This is an unresolved
 activation-boundary defect, not evidence of a v0.3.2 regression. v0.3.2 improved
-the adjacent-discovery case, while the small losses on TSN-1 and TSN-3 reflect
-less complete responses under this run's compact output constraint.
+the adjacent-discovery case. Judges cited missing alternatives and bounded
+predictions for the small losses on TSN-1 and TSN-3. Whether the instruction
+change caused those losses is unresolved: one sample per case and judge
+disagreement cannot distinguish a regression from response variation.
 
 ### Inference metrics
 
@@ -174,7 +180,7 @@ costs:
 | Prompt tokens | 13,336 | 15,136 | +1,800 (+13.5%) |
 | Generated tokens | 878 | 757 | -121 (-13.8%) |
 | Total tokens | 14,214 | 15,893 | +1,679 (+11.8%) |
-| Wall-clock generation time | 23.4 s | 31.9 s | +8.5 s (+36.4%) |
+| Sum of API-reported generation durations | 23.4 s | 31.9 s | +8.5 s (+36.4%) |
 
 The prompt increase is expected from the larger v0.3.2 skill text. No token or
 latency improvement was observed in this pass.
@@ -187,5 +193,103 @@ response format and token ceiling. The result does **not** support claiming a
 quantified performance improvement for v0.3.2. It supports one positive result
 (stronger adjacent-discovery handling), two neutral results, small mixed shifts
 on two target cases, and an unresolved negative-control failure in both
-versions. The earlier unscored free-form pass is superseded by this clean,
-blinded JSON-scored run.
+versions. The earlier unscored free-form pass does not establish reliable
+negative-control compliance across models and prompts.
+
+### Audit of the historical evidence
+
+The transcript retains aggregate scores and judge rationales, but the old
+harness did not persist candidate responses, source hashes, or a runnable
+protocol. Independent reconstruction of individual judgments is unavailable.
+Earlier attempts truncated answers at 800/500 tokens; one structured attempt
+also supplied the intended negative-control answer to the generator, and a
+later attempt accidentally supplied that instruction to every case. Those
+attempts cannot validate activation. Truncation is an observed budget failure,
+not permission to infer that an unfinished answer would have passed.
+The final historical run removed that hint but still forced analysis fields.
+This may encourage over-activation and must be treated as a harness confound.
+
+## v0.3.3-rc.1 remediation — UNRELEASED
+
+### Diagnosis and changes before the new run
+
+- Broad recurrence wording permits ordinary repeated distraction to satisfy
+  activation. The original v0.3.2 brief requested an explicit exclusion, but
+  the implementation left it implicit. Add an early exclusion with an
+  evidence-based escape for actual recurring process/system problems.
+- v0.3.2 mostly added vocabulary to decisions v0.3.1 already handled well.
+  Extra input tokens are directly measured; quality gains were not established.
+  Consolidate duplicated SNR definition and focus on decisions it must change.
+- TSN-1/3 judge disagreement exposes incomplete alternatives and predictions.
+  Preserve those in compact answers and prohibit invented numerical gains.
+  This is a testable remediation hypothesis, not a proven cause of the loss.
+- "Only blocking" could be read as excluding safety issues unrelated to
+  immediate completion. Make guardrail threats an explicit scope exception.
+- Replace disposable one-off scripts with `evaluation/remediation.mjs`.
+  Save complete synthetic responses, metrics, errors, source hashes, rubric,
+  prompts, and raw judge replies outside the development tree.
+
+### Frozen protocol and gate
+
+Compare v0.3.1 (`dcfb535`), v0.3.2 (`5c54d7b`), and the v0.3.3-rc.1 source
+snapshot. Use nine cases, including all five original TSN cases, two additional
+negative controls, a safety-critical adjacent finding, and a queue/retry
+regression case. Use two seeds per version/case, interleaved version order,
+one fresh request per response, and the same generator and prompt wrapper.
+The generator receives no expected activation or case-specific rubric.
+Two separate judge models receive anonymised candidate content and the rubric.
+Scores are recomputed from validated criterion values; malformed or truncated
+responses are invalid, never converted silently to quality zeroes.
+
+Pre-run gate: no invalid responses; all candidate negative-control decisions
+correct; no judged guardrail violations; aggregate candidate quality at least
+both baselines; positive-case mean at least v0.3.2. Failure retains release hold.
+Passing supports a reviewable candidate only; no official release is authorised.
+Two samples and model judges are exploratory evidence, not statistical proof.
+
+Run: `node evaluation/remediation.mjs <new-absolute-evidence-directory>`.
+The local evidence root for this run is
+`outputs/seibi-v033-evaluation-20260921/` in the Kenji workspace.
+Only synthetic evaluation content is retained there; no operational data is used.
+
+### Independent source review disposition
+
+A fresh `glm-5.2:cloud` request reviewed both skill texts, without the test
+outputs. Full review is in `source-review.json` in the evidence root. It did
+not block candidate evaluation. Its claims that the revision categorically
+excludes systemic focus problems or requires SNR measurement are not supported
+by the full text: the evidence exception and the ban on invented SNR scores
+remain explicit. Its request to restore every mechanism example would undo
+the intended consolidation. Authority, privacy and instrumentation sections
+were mechanically checked and remain byte-identical to v0.3.2. The optional
+output outline is deliberate so non-qualifying requests need not mimic a
+systems report. Wording clarity remains worth checking through behaviour.
+
+### rc.1 results (retained, not a release)
+
+54/54 candidate responses and 108/108 judge responses were valid.
+
+| Version | Mean quality /8 | Percent | Positive cases /8 | Total generation tokens |
+|---|---:|---:|---:|---:|
+| v0.3.1 | 7.7222 | 96.53% | 7.5833 | 52,053 |
+| v0.3.2 | 7.6111 | 95.14% | 7.4167 | 58,605 |
+| v0.3.3-rc.1 | 7.6667 | 95.83% | 7.5000 | 60,212 |
+
+All three versions passed all six negative-control responses (three cases,
+two seeds) according to both judges. This does not reproduce the historical
+failure and points to wrapper/model sensitivity. These percentages must not
+be compared directly with the historical 80/77.5 scores: the suite, wrapper,
+output budget, and replication differ.
+
+rc.1 fails the pre-run quality gate because its aggregate is below v0.3.1.
+Both judges flagged zero guardrail violations, but direct review of retained
+outputs found important misses: candidate-002 invented a 30% reduction,
+candidate-004 forbade B exploration until a checkpoint rather than explicitly
+exempting threats, candidate-006 proposed comparison with/without validation,
+and candidate-048 invented a sub-hour triage duration. Thus automated safety
+scores are insufficient. These are model responses, not executed operations.
+
+An rc.2 revision will require guardrail exceptions in proposed routing rules,
+safe offline comparison when assurance must be preserved, and grounded numeric
+claims. The same frozen cases/rubric/models will be repeated; the rc.1 evidence
+and adverse findings remain intact.

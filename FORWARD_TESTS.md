@@ -146,6 +146,10 @@ conditional on authorization with numerical stop conditions.
 
 ## Task signal-to-noise forward tests — candidate v0.3.2
 
+Historical candidate: **unreleased, failed validation**. TSN-4 failed in the
+quantified run; see `RETUNING_EVALUATION.md`. Expected behaviour below remains
+the test specification, not a claim of passing results.
+
 These cases test task signal-to-noise as a systems lens. They are instruction-
 level cases, not independent production deployments or proof of general
 effectiveness. The target behaviour is to improve progress toward the defined

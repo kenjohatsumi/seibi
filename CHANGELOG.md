@@ -1,6 +1,16 @@
 # Changelog
 
-## v0.3.2 — 2026-09-21
+## v0.3.3-rc.1 — unreleased remediation candidate
+
+Explicitly excludes ordinary personal focus requests from systems analysis;
+consolidates task-SNR guidance; restores completion and guardrail exceptions
+for adjacent findings; and preserves alternatives, falsifiers, predictions,
+and assurance in short answers. Evaluation pending. No official release.
+
+## v0.3.2 — 2026-09-21 — unreleased, failed candidate validation
+
+**Do not release:** the version test below did not establish improvement and
+failed its activation negative control. Preserved as a version test result.
 
 Added task signal-to-noise as a focused lens for recurring process behaviour.
 The retune distinguishes outcome-advancing work and necessary guardrail work

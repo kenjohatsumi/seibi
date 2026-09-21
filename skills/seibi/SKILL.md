@@ -6,7 +6,8 @@ description: >-
   feedback loops, delays, competing hypotheses, leverage points, and measured
   experiments. Use when outcomes emerge from component interaction or recur
   over time. Do not activate for isolated bugs, dashboard reads, or
-  routine optimization without evidence of wider system behaviour.
+  routine optimization or personal focus requests without evidence of wider
+  system behaviour.
 ---
 
 # Seibi
@@ -19,16 +20,16 @@ understand how system structure and interactions produce that behaviour,
 identify plausible causal mechanisms and leverage points, and recommend
 measured improvements without confusing correlation with causation.
 
-For recurring processes, distinguish work advancing the outcome or protecting
-guardrails from repeated activity that advances neither. This task-relative
-SNR lens seeks progress-to-attention ratio; it is not a required score.
-
 Prefer the simplest evidence-supported explanation, but account for component
 interaction.
 
 ## Activate Seibi when
 
-Use Seibi when one or more apply:
+First decide whether a systems investigation is warranted. A request to focus,
+prioritise today's tasks, or finish one report does not qualify merely because
+the user says "keep" or "repeatedly". Give brief direct help in those cases;
+do not construct a system model. Apply the loop when evidence describes a
+recurring process problem or material interactions, for example:
 
 - a failure, bottleneck, backlog, quality problem, or operational pattern recurs;
 - components, agents, teams, queues, incentives, or resources interact and
@@ -38,8 +39,7 @@ Use Seibi when one or more apply:
 - local fixes repeatedly fail or need manual intervention;
 - a recurring process repeatedly consumes effort in rework, handoffs,
   duplicated work, or scope diversion without proportional system progress;
-- the user asks for system dynamics, feedback loops, leverage points,
-  second-order effects, or a system-level explanation.
+- a system-level question concerns feedback, delays, or second-order effects.
 
 Do **not** activate merely for:
 
@@ -99,9 +99,9 @@ State:
 Define the system outcome before judging components; local efficiency counts
 only if it improves that outcome or guardrails.
 
-For recurring processes, distinguish outcome/guardrail work from recurring
-effort that advances neither. Preserve and route adjacent findings; expand
-scope only for completion or guardrail impact.
+For recurring processes, task signal-to-noise means progress toward this
+outcome per attention consumed. Testing, coordination, and safety work count
+when they protect the outcome or guardrails; useful work elsewhere may not.
 
 ### 2. Observe
 
@@ -136,11 +136,10 @@ Describe only needed structure and interaction:
 
 Treat loops inferred from telemetry as candidates until causally supported.
 
-When recurring process effort has low SNR, model its source: unclear outcome or
-completion conditions, excessive WIP, handoffs, weak ownership/authority,
-delayed feedback, ambiguous criteria, duplicated controls, unstable
-requirements, premature escalation, scope accretion, or no parking path for
-adjacent findings. Treat reviews/handoffs as symptoms until causal evidence.
+For recurring noise, explain its producing structure: ambiguous acceptance
+criteria, delayed feedback, excessive WIP, weak authority, or missing routing.
+Review count alone does not establish redundant review; distinguish disputes
+about criteria from defects the review correctly catches.
 
 ### 4. Challenge
 
@@ -194,9 +193,10 @@ Consider, from lower to higher leverage:
 Choose the least risky supported intervention; higher leverage is not
 automatically better.
 
-Prefer removing supported structural sources of recurring low-value effort
-before adding capacity. **Discover broadly; act narrowly:** only blocking
-adjacent findings expand scope; preserve and route the others.
+**Discover broadly; act narrowly.** Include adjacent findings that prevent
+completion or threaten a guardrail; preserve and route related non-blocking
+and independent findings. Supported removal of structural noise precedes
+adding effort; fewer steps alone is not success.
 
 ### 7. Recommend or test
 
@@ -228,9 +228,10 @@ condition and why it cannot be quantified safely.
 
 Prefer narrower experiments that distinguish hypotheses.
 
-Bounded changes may clarify an acceptance gate, remove a duplicate handoff,
-reduce WIP, move feedback earlier, assign authority, or park findings. Do not
-remove indirect steps that protect guardrails.
+For process changes, test one rule or handoff against a plausible alternative;
+predict accepted completion or rework over a stated window while preserving
+assurance. Without a baseline, give direction and a falsifier, not invented
+percentage gains.
 
 ### 8. Measure and update
 
@@ -287,7 +288,10 @@ Never raise confidence merely because an explanation sounds coherent.
 
 ## Final output
 
-Keep reports proportional.
+Keep reports proportional. The outline below is optional. For an active case,
+even a short answer should retain a competing explanation, a distinguishing
+observation, and a bounded recommendation with prediction and guardrails.
+For a non-qualifying request, give direct help without this outline.
 
 ```markdown
 # Seibi Analysis

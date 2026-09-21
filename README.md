@@ -110,7 +110,10 @@ controls where available.
 
 ## Version
 
-Current release: **v0.3.2**
+Published baseline: **v0.3.1**. Development candidate: **v0.3.3-rc.1**.
+
+**Release hold:** v0.3.2 failed candidate validation and was not released.
+v0.3.3-rc.1 is remediation under evaluation, not an official release.
 
 See [`CHANGELOG.md`](CHANGELOG.md).
 

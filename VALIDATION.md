@@ -65,11 +65,14 @@ privacy, permission, and failed-prediction checks remain PASS.
 
 ## Task signal-to-noise validation — candidate v0.3.2
 
+**Historical version test; failed, unreleased.** Partial scores on TSN-1/3
+must not be read as proof that every expected behaviour passed.
+
 | # | Scenario | Expected specification behaviour | Result |
 |---|---|---|---|
-| TSN-1 | Repetitive review/rework loop | Investigate acceptance criteria and feedback structure; do not simply reduce reviews | PASS in paired forward run |
+| TSN-1 | Repetitive review/rework loop | Investigate acceptance criteria and feedback structure; do not simply reduce reviews | Historical mean 7/8; incomplete alternative/prediction flagged |
 | TSN-2 | Useful adjacent discovery diverts objective A | Preserve and route non-blocking findings; bring them into scope only when they block completion or violate a guardrail | PASS in paired forward run |
-| TSN-3 | Validation protects against serious failures | Protect necessary assurance work; seek efficiency without weakening guardrails | PASS in paired forward run |
+| TSN-3 | Validation protects against serious failures | Protect necessary assurance work; seek efficiency without weakening guardrails | Historical mean 7.5/8; incomplete alternatives flagged |
 | TSN-4 | One-off distraction while writing | Do not activate Seibi without recurring/interacting system behaviour | FAIL in quantified run: over-activated in both versions |
 | TSN-5 | Repeated handoffs, data entry, and reopened work | Model structural causes, propose a bounded intervention, and measure outcome/guardrails without requiring an SNR score | PASS in paired forward run |
 
