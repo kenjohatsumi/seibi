@@ -83,6 +83,7 @@ seibi/
 ├── VALIDATION.md
 ├── FORWARD_TESTS.md
 ├── RETUNING_EVALUATION.md
+├── RELEASE_SOP.md
 └── skills/
     └── seibi/
         ├── SKILL.md
@@ -107,6 +108,11 @@ reviewed against intended behaviour.
 `RETUNING_EVALUATION.md` contains quantitative before/after comparisons for
 the release retunings, including independent-agent scoring and negative
 controls where available.
+
+[`RELEASE_SOP.md`](RELEASE_SOP.md) is the maintainer procedure for preparing,
+validating, and publishing a release. It is process documentation for this
+repository, not part of the runtime skill, and is excluded from
+[`skills/seibi/`](skills/seibi/). Every release from v0.3.3 onward follows it.
 
 ## Version
 
