@@ -202,19 +202,21 @@ decision.
 
 ## 12. Create release evidence
 
-For an approved release, record in the repository's evaluation and validation
-documents:
+For an approved release, create an evidence package at
+`evidence/releases/<version>/`, containing:
 
-- version;
-- previous release;
-- candidate identifier and commit;
-- purpose;
-- change classes;
-- important changes;
-- tests performed;
-- validation result;
-- known limitations;
-- supporting evidence, with links to the raw evaluation output.
+- `SUMMARY.md` — version, previous release, candidate identifier and commit,
+  purpose, change classes, important changes, tests performed, validation
+  result, known limitations, and supporting evidence links;
+- `VALIDATION.md` — the validation result for the version;
+- `TEST_RESULTS.md` — the tests run and their outcomes;
+- `RELEASE_CHECKLIST.md` — a completed copy of the checklist in
+  [`RELEASE_CHECKLIST.md`](RELEASE_CHECKLIST.md), filled in for this
+  release. Completing a copy is mandatory for every release.
+
+Link `CHANGELOG.md` and public documentation to this package rather than
+duplicating its content. Preserve evidence for superseded and failed
+candidates under `evidence/history/` instead of deleting it (section 18).
 
 ## 13. Update the version
 
@@ -227,7 +229,9 @@ Confirm that these agree:
 - release documentation;
 - the Git tag.
 
-A mismatch blocks release.
+Run `node evaluation/check-release.mjs` to check `VERSION`, runtime version
+metadata, `CHANGELOG.md`, the `evidence/releases/<version>/` package, and the
+Git tag automatically. A mismatch blocks release.
 
 ## 14. Update the changelog
 

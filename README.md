@@ -2,75 +2,80 @@
 
 **Understand the system. Steward its behaviour. Improve it with evidence.**
 
-Seibi is a practical methodology for AI agents analyzing recurring, interacting,
-or system-level behaviour. It is inspired by systems thinking and system
-dynamics, and extends those ideas with modern observability, competing
-hypotheses, falsification, explicit permissions, prediction, measured
-experiments, and model revision.
+## What Seibi is
 
-Seibi is designed for problems where behaviour emerges from interactions across
-components or recurs over time. It is intentionally **not** a replacement for
-ordinary debugging, dashboard reading, or routine one-off optimization.
+Seibi is a methodology for AI agents. It analyzes recurring, interacting, or
+system-level behaviour. It is inspired by systems thinking and system
+dynamics, and adds modern observability, competing hypotheses, falsification,
+explicit permissions, prediction, measured experiments, and model revision.
 
-## What Seibi helps an agent do
+Seibi is not a replacement for ordinary debugging, dashboard reading, or a
+routine one-off fix.
 
-Seibi guides an agent to:
+## When to use it
 
-- define the system boundary and outcome that actually matters;
-- use existing evidence before requesting more instrumentation;
-- identify stocks, flows, feedback loops, delays, and constraints;
-- distinguish observations from causal claims;
-- maintain competing hypotheses and falsifiers;
-- identify practical leverage points;
-- prioritize whole-system improvement over unsupported local optimisation;
-- make predictions before interventions;
-- recommend bounded experiments with guardrails and rollback;
-- measure observed results and update the system model;
-- identify recurring process activity that consumes effort without
-  proportionately advancing the system outcome;
-- keep analysis records outside the system under analysis;
-- avoid unauthorized production changes and unnecessary data collection.
+Use Seibi when behaviour emerges from interactions across components, or
+recurs over time: a recurring backlog, retry amplification, oscillating
+autoscaling, quality/rework feedback, or repeated local fixes that fail
+structurally.
 
-The runtime method is intentionally compact. Optional schemas, ledgers, and
-archetypes live under [`references/`](skills/seibi/references/).
+Do not use Seibi for an isolated bug with a clear local cause, a one-off
+incident, a dashboard summary, or routine tuning with no evidence of
+interacting behaviour.
 
-## Activation
+See [`docs/METHOD.md`](docs/METHOD.md) for the full activation guidance and
+the safety model.
 
-Use Seibi for recurring or interacting system behaviour, such as:
+## How to use it
 
-- recurring queue or backlog growth;
-- retry amplification;
-- oscillating autoscaling;
-- quality/rework feedback;
-- multiple components whose interactions produce an outcome;
-- repeated local fixes that fail structurally;
-- delayed or second-order effects;
-- recurring process rework, handoffs, duplicated work, or scope diversion that
-  consume attention without proportional system progress.
+Seibi ships as a skill at [`skills/seibi/`](skills/seibi/), with its runtime
+entry point at [`SKILL.md`](skills/seibi/SKILL.md). Copy that directory into
+your agent's skills path, or point your agent at the file directly. Optional
+schemas, ledgers, and archetypes are in
+[`references/`](skills/seibi/references/); the runtime instructions stay
+compact and load them only when needed.
 
-Do not invoke Seibi merely for:
+## Example
 
-- an isolated bug with a clear local cause;
-- a one-off incident;
-- summarizing a dashboard;
-- routine tuning with no evidence of interacting behaviour.
+A queue backlog recurs every morning, and retries rise after latency spikes.
+Seibi asks the agent to model the stock (queue depth) and flows (arrival and
+drain rate), form a hypothesis about the candidate reinforcing loop between
+retries and latency, and check it against existing telemetry before
+recommending a bounded, reversible experiment.
 
-Task signal-to-noise is a focused lens within this boundary, not a productivity
-or task-management method. Preserve useful adjacent findings, but discover
-broadly and act narrowly: do not expand the active scope unless completion or
-a guardrail is materially affected.
+An isolated bug — one service returns a 500 after a config typo just
+deployed — does not activate Seibi. The direct fix-and-verify path is
+sufficient.
 
 ## Safety model
 
-Seibi defaults to **observe, analyze, and recommend**.
+Seibi defaults to **observe, analyze, and recommend**. It does not authorize
+an agent to change production systems, deploy instrumentation, alter
+logging, run disruptive experiments, or collect sensitive data — those need
+explicit authorization. It applies data minimization by default: no logging
+or persisting secrets, prompts/responses, personal data, or sensitive
+payloads without explicit authorization and safeguards.
 
-It does not authorize an agent to change production systems, deploy
-instrumentation, alter logging, run disruptive experiments, or collect sensitive
-data. Those actions require explicit authorization.
+## Start here
 
-Seibi also applies data-minimization by default and prohibits logging or
-persisting secrets, prompts/responses, personal data, unrestricted identifiers,
-or sensitive payloads without explicit authorization and safeguards.
+- New to Seibi? Read [`docs/METHOD.md`](docs/METHOD.md).
+- Testing it against your own use case? Read [`docs/TESTING.md`](docs/TESTING.md).
+- Checking what is validated and what is not? Read
+  [`docs/VALIDATION.md`](docs/VALIDATION.md).
+- Looking for a specific release? Read [`docs/RELEASES.md`](docs/RELEASES.md)
+  and [`CHANGELOG.md`](CHANGELOG.md).
+- Maintaining or releasing Seibi? Read [`RELEASE_SOP.md`](RELEASE_SOP.md) and
+  use [`RELEASE_CHECKLIST.md`](RELEASE_CHECKLIST.md).
+
+## Current release
+
+**v0.3.3.** It closes the last release-blocking defect from the v0.3.2/v0.3.3
+remediation programme: unsupported numerical promises in recommendations,
+and loss of necessary assurance under task signal-to-noise pressure. Both
+are resolved with no regression on any existing control. See
+[`docs/VALIDATION.md`](docs/VALIDATION.md) for the current status and
+[`evidence/releases/v0.3.3/SUMMARY.md`](evidence/releases/v0.3.3/SUMMARY.md)
+for the full release record.
 
 ## Package
 
@@ -80,76 +85,30 @@ seibi/
 ├── LICENSE
 ├── VERSION
 ├── CHANGELOG.md
-├── VALIDATION.md
-├── FORWARD_TESTS.md
-├── RETUNING_EVALUATION.md
 ├── RELEASE_SOP.md
+├── RELEASE_CHECKLIST.md
+├── docs/                    - current guidance: method, testing, validation, releases
+├── evidence/
+│   ├── releases/<version>/  - per-release evidence package
+│   └── history/             - full historical validation and evaluation record
+├── evaluation/              - deterministic test harnesses
 └── skills/
     └── seibi/
-        ├── SKILL.md
+        ├── SKILL.md         - runtime entry point
         └── references/
             ├── machine-readable-model.md
             ├── system-archetypes.md
             └── templates.md
 ```
 
-The runtime entry point is [`SKILL.md`](skills/seibi/SKILL.md).
-
-## Validation
-
-`VALIDATION.md` contains specification/rubric checks. These checks test whether
-the skill instructions contain the intended safeguards and decision rules; they
-are **not evidence of real-world deployment performance**.
-
-`FORWARD_TESTS.md` contains recorded forward tests in which representative
-prompts were processed using Seibi instructions and the resulting analyses were
-reviewed against intended behaviour.
-
-`RETUNING_EVALUATION.md` contains quantitative before/after comparisons for
-the release retunings, including independent-agent scoring and negative
-controls where available.
-
-[`RELEASE_SOP.md`](RELEASE_SOP.md) is the maintainer procedure for preparing,
-validating, and publishing a release. It is process documentation for this
-repository, not part of the runtime skill, and is excluded from
-[`skills/seibi/`](skills/seibi/). Every release from v0.3.3 onward follows it.
-
-## Version
-
-Published baseline: **v0.3.3**. Developed as candidate rc.7 and released
-unchanged.
-
-**Remediation history:** v0.3.2 failed candidate validation and was not
-released. v0.3.3-rc.2 fixed the assurance defect and made the
-unsupported-numeric defect worse; rc.3 undid that regression and rc.4 did not
-improve on rc.3; rc.5 removed the numeric defect but suppressed numerical stop
-conditions with it; rc.6 restored them and left one residual case; rc.7 closed
-it and passed candidate validation on all nine cases with no regression on any
-control, at a measured cost of 27.2% more prompt tokens than v0.3.1. See
-[`VALIDATION.md`](VALIDATION.md) and
-[`RETUNING_EVALUATION.md`](RETUNING_EVALUATION.md).
-
-v0.3.2 was never released; its task signal-to-noise material lives on inside
-v0.3.3.
-
-See [`CHANGELOG.md`](CHANGELOG.md).
-
 ## Intellectual foundations
 
-Seibi is a practical methodology inspired by:
-
-- Donella H. Meadows, *Thinking in Systems: A Primer*;
-- Klaus Mainzer, *Thinking in Complexity: The Computational Dynamics of
-  Matter, Mind, and Mankind*;
-- Eliyahu M. Goldratt and Jeff Cox, *The Goal: A Process of Ongoing
-  Improvement*;
-- Jay W. Forrester and the field of system dynamics;
-- scientific practices involving competing hypotheses, falsification,
-  prediction, and controlled experimentation;
-- modern observability practices involving metrics, logs, traces, events, and
-  system-level outcomes.
-
-Seibi is not presented as an established formal standard.
+Seibi is inspired by Donella H. Meadows (*Thinking in Systems: A Primer*),
+Klaus Mainzer (*Thinking in Complexity*), Eliyahu M. Goldratt and Jeff Cox
+(*The Goal*), Jay W. Forrester and the field of system dynamics, scientific
+practice around competing hypotheses and falsification, and modern
+observability practice. See [`docs/METHOD.md`](docs/METHOD.md) for the full
+list. Seibi is not presented as an established formal standard.
 
 ## License
 
