@@ -585,3 +585,102 @@ candidate is not a fix.
 NC-3, the known configuration typo, drew an explicit non-activation in every
 response of every version in every run. None of these wording changes suppress
 numbers by suppressing the method.
+
+## Focused re-evaluation: rc.5 and rc.6
+
+Two further runs, each on fresh seeds, each containing v0.3.1 and v0.3.2 as
+live baselines rather than quoted ones. Run E holds rc.2, rc.4 and rc.5; run F
+holds rc.4, rc.5 and rc.6. All measures are deterministic re-scores of the
+retained responses.
+
+### Replacing the condition with a form
+
+rc.3 and rc.4 conditioned the number: a magnitude is permitted where the
+evidence supplies a baseline. Reading the flagged responses showed what the
+model did with that. It learned the vocabulary of the condition and attached it
+to the promise as a garnish — "falls by at least 10% (direction-based, not
+magnitude promise)". A condition on a number invites a qualified number.
+
+rc.5 stopped conditioning and gave the sentence a form instead: write the
+observable, the direction it moves, and the window; a number enters only by
+quoting one the supplied evidence states, in the same sentence as its source.
+
+On the target defect this is complete, and it replicates.
+
+| run | v0.3.1 | v0.3.2 | rc.2 | rc.4 | rc.5 | rc.6 |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: |
+| E | 16/50 | 14/50 | 23/50 | 10/50 | 0/50 | — |
+| F | 20/50 | 25/50 | — | 14/50 | 0/50 | 1/50 |
+
+rc.6 against v0.3.1 within run F is 49/50 clean against 30/50, Fisher one-tailed
+p = 1.2e-06.
+
+### What the absolute form cost, and how it was bounded
+
+rc.5's rule generalised past predictions. Section 7 requires a stop condition
+for a proposed experiment, and a stop condition carries a threshold; the model
+read "no figure the evidence does not contain" as governing those too, and
+stopped writing them.
+
+This was invisible to both existing scorers. `evaluation/stop-conditions.mjs`
+was written for it, and reports two things separately: whether a stop or
+rollback condition is stated at all, and whether it carries a threshold. Only
+the first is a regression against a required behaviour — section 7 permits a
+qualitative stop condition, so a fall in the second is a change in form.
+
+The measure excludes TSN-3. There the correct answer is a shadow comparison
+with the live control retained: no live experiment is proposed, so no rollback
+is owed, and counting the case hides the thing the measure is for.
+
+Stop conditions stated, live-experiment cases only:
+
+| run | v0.3.1 | v0.3.2 | rc.2 | rc.4 | rc.5 | rc.6 |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: |
+| E | 30/30 | 30/30 | 28/30 | 28/29 | 18/30 | — |
+| F | 27/30 | 30/30 | — | 29/30 | 22/30 | 27/30 |
+
+rc.5 against v0.3.1 in run E is p = 6.2e-05. The regression is real and
+replicates in F.
+
+rc.6 changed nothing about the sentence form and bounded its reach: the rule
+governs the prediction, and stop conditions and rollback triggers are not
+predictions and keep their numbers. The carve-out is stated in section 7 at the
+point the stop condition is written, not only in the prediction step. rc.6
+returns to 27/30, identical to v0.3.1 in the same run (p = 0.66), while holding
+the numeric result at 1/50.
+
+The general lesson is the same one this programme keeps producing, in a third
+form. An instruction lands where it is written. rc.5's rule was written in the
+prediction step and reached everything, because nothing told it where to stop;
+the fix was not to soften it but to say, in the other place, that the other
+place is out of scope.
+
+### Assurance preservation
+
+TSN-3, n = 10 per version per run. `preserved` requires both a shadow or
+historical comparison and the live control left in place.
+
+| run | measure | v0.3.1 | v0.3.2 | rc.4 | rc.5 | rc.6 |
+| --- | --- | ---: | ---: | ---: | ---: | ---: |
+| E | shadow | 0 | 1 | 10 | 6 | — |
+| E | preserved | 1 | 10 | 7 | 6 | — |
+| F | shadow | 2 | 0 | 9 | 8 | 10 |
+| F | preserved | 0 | 0 | 9 | 5 | 8 |
+
+The rc.2 assurance fix continues to hold through rc.6. rc.5's dip on this
+measure tracks its stop-condition loss: a response that proposes no experiment
+and no rollback also, on this case, more often proposes cutting the validation.
+
+### Residual defect in rc.6
+
+rc.6's single flagged response, run F candidate-144 on TSN-5, reads "reopen rate
+falls from the recorded 18%". The TSN-5 prompt contains no numbers. The figure
+came from the example in the Predict step, which at rc.6 read "reopen rate falls
+from the recorded 18%" verbatim.
+
+This is a defect in the instruction, not in the model's reading of it. An
+example that carries a concrete number supplies one to copy, and the rule
+wrapped around that example says a number in a prediction comes from the
+evidence — so the copied figure arrives pre-labelled as evidence. rc.7 removes
+the digit and keeps the binding: "reopen rate falls from the rate the supplied
+log records".
