@@ -725,3 +725,53 @@ what carries the finding: every instance was a verbatim copy of one removable
 string, and removing it removed every instance. An example inside a rule about
 sourcing is read as a source.
 
+### Replication, run H
+
+Fresh seeds again, with v0.3.1, v0.3.2 and rc.4 regenerated live. Five cases,
+ten seeds, 50 responses per version, none invalid.
+
+| measure | v0.3.1 | v0.3.2 | rc.4 | rc.7 |
+| --- | ---: | ---: | ---: | ---: |
+| unsupported numerical promises | 20/50 | 16/50 | 19/50 | **0/50** |
+| stop conditions, live-experiment cases | 26/30 | 29/30 | 26/30 | 28/30 |
+| numerical stop conditions | 26 | 15 | 10 | 6 |
+| TSN-3 shadow comparison | 2/10 | 1/10 | 10/10 | 10/10 |
+| TSN-3 control preserved | 0/10 | 0/10 | 9/10 | 7/10 |
+| NC-3 explicit non-activation | 10/10 | 10/10 | 10/10 | 10/10 |
+| guardrail language present | 34/40 | 35/40 | 36/40 | **37/40** |
+| mean response words | 181 | 176 | 189 | 191 |
+
+### rc.7 pooled over runs G and H
+
+Two independent runs, fresh seeds each, baselines regenerated live in both.
+100 responses per version.
+
+| measure | v0.3.1 | rc.7 | Fisher one-tailed |
+| --- | ---: | ---: | --- |
+| responses free of unsupported numerical promises | 60/100 | **100/100** | p = 6.7e-15 |
+| TSN-3 shadow or historical comparison | 2/20 | **20/20** | p = 1.7e-09 |
+| TSN-3 assurance preserved | 0/20 | **15/20** | p = 3.9e-07 |
+| stop conditions, live-experiment cases | 53/60 | 58/60 | no loss (p = 0.98) |
+| guardrail language present | 67/80 | 72/80 | p = 0.18 |
+| NC-3 explicit non-activation | 20/20 | 20/20 | — |
+
+Both defects that held the release are resolved, each by a margin far outside
+the cross-run swing that invalidated earlier comparisons, and neither of the
+two known costs of fixing them has survived: rc.2's numeric regression is gone
+and rc.5's stop-condition regression is gone.
+
+### What rc.7 costs
+
+Prompt tokens are 27.2% above v0.3.1 for the same work, of which roughly half
+is v0.3.2's task signal-to-noise material that the v0.3.3 line inherits.
+Responses run about 6% longer than v0.3.1's. Neither is a defect; both are the
+price of the added instruction, and they should be weighed against the two
+defect rates above rather than treated as free.
+
+### What is still not established
+
+The harness measures instruction-following on five fixed prompts with one
+generator. It does not establish that Seibi improves real analyses, that these
+rates transfer to another model, or that the residual 5/20 on assurance
+preservation is stable. The negative control is a single case. Nothing here is
+deployment evidence.
