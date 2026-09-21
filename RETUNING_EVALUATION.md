@@ -463,3 +463,125 @@ count can: it is exact, reproducible, and reports the defect that actually
 blocks release. It should become a gate condition in its own right, with the
 threshold set from a baseline measured at adequate power rather than from the
 present six-response sample.
+
+## Focused re-evaluation: rc.2, rc.3 and rc.4
+
+The previous section argued that a focused run of the eliciting cases at ten
+seeds, scored mechanically, is the right instrument for this defect. That
+harness is `evaluation/focused.mjs`. It runs TSN-1, TSN-2, TSN-3 and TSN-5 —
+TSN-3 carries the assurance measure rather than the numeric one — plus NC-3 as
+a negative control, on every version in the same run. There are no judges:
+`evaluation/numeric-promise.mjs` and `evaluation/assurance.mjs` re-score the
+retained responses deterministically.
+
+### The generator is not reproducible across runs
+
+Byte-identical v0.3.1, at temperature 0 with fixed seeds, scored 23/50, 13/50,
+16/50 and 16/50 on four runs. The spread on frozen source is 10 responses —
+larger than any difference this programme has attributed to a wording change.
+
+This is not a detector artefact; the detector is byte-stable on re-run. It is
+the generator, and it invalidates the obvious way of testing a new candidate,
+which is to run it and compare against numbers published from an earlier run.
+Two consequences are now enforced by the harness. Every version under
+comparison appears in every run, so comparisons are within-run. And confirming
+a result means re-running on **fresh** seeds, not the same ones, which is why
+`SEIBI_SEEDS` is overridable.
+
+The assurance measure does not behave this way: v0.3.1 scored 1 shadow response
+in 40 across the same four runs. Instability is a property of a measure, not of
+a harness, and has to be established per measure.
+
+### Unsupported numerical promises, four runs
+
+Flagged responses out of 50 per version per run. Run C lost two responses to a
+generation timeout and a parse failure, which is why rc.2 has a denominator of
+49 there.
+
+| Version | A | B | C | D | Pooled | Rate |
+|---|---:|---:|---:|---:|---:|---:|
+| v0.3.1 | 23/50 | 13/50 | 16/50 | 16/50 | 68/200 | 34.0% |
+| v0.3.2 | 21/50 | 18/50 | 14/50 | 22/50 | 75/200 | 37.5% |
+| v0.3.3-rc.2 | 28/50 | 24/50 | 20/49 | 23/50 | 95/199 | 47.7% |
+| v0.3.3-rc.3 | — | 12/50 | 14/50 | 13/50 | 39/150 | 26.0% |
+| v0.3.3-rc.4 | — | — | 10/50 | 15/50 | 25/100 | 25.0% |
+
+**rc.2 made the defect worse, in every run that contains it.** The instruction
+it added — strip unsupported percentage gains from the final advice — was not
+merely ineffective, as the earlier nine-case re-score concluded; it was
+counterproductive. Naming the forbidden object in a cleanup step at the end of
+the skill appears to prime the behaviour it prohibits.
+
+**rc.3 reverses that.** Cochran-Mantel-Haenszel, stratified by run so the
+cross-run swing cannot contribute, over the three runs containing both:
+chi-square 10.82, one-tailed p = 0.0005, common odds ratio 2.37 on the clean
+rate. rc.4 against rc.2 over two runs: chi-square 6.67, p = 0.0049.
+
+Against the published baseline the improvement is **not established**: rc.3 vs
+v0.3.1 gives p = 0.26 and rc.4 vs v0.3.1 p = 0.17, both stratified. The honest
+statement is that the rc.3 line undoes an rc.2 regression and trends below
+v0.3.1 without proving it.
+
+### What worked, and what a prohibition costs
+
+The three versions differ in where the instruction sits and how it is phrased:
+
+| Version | Form | Placement | Effect |
+|---|---|---|---|
+| rc.2 | prohibition — remove unsupported gains | final-output cleanup | +13.7 points, worse |
+| rc.3 | construction — state the direction against the observed value; cite a baseline with any magnitude | inside the Predict step | -21.7 points against rc.2 |
+| rc.4 | rc.3 plus a definition of *threshold* | inside the Predict step | no change on rc.3 |
+
+The operative difference is not strictness. It is that rc.3 tells the model
+what to write, in the step where the sentence is generated, and rc.2 tells it
+what to delete, in a step that runs after the sentence exists.
+
+rc.4 tested whether tightening the same instruction helps further. It does not:
+25/100 against rc.3's 27/100 over the two shared runs, stratified p = 0.44. The
+loophole it was written to close — the model offering "falls by at least 10%
+(direction-based, not magnitude promise)" as a threshold — survives the
+definition. Nineteen of rc.4's 25 failures are still of the form *by at least
+N%*. Recorded as tested and ineffective; the wording is retained because it is
+correct, not because it is proven.
+
+The residual failures show why. Under rc.3 and rc.4 the model writes
+"decreases by at least 20% (direction against current baseline)" and "drops by
+at least 20% from current baseline (cite the measured baseline)". It has
+learned the vocabulary of the instruction and attached it to the promise as a
+qualifier. A condition on a number invites a qualified number.
+
+### Assurance preservation
+
+TSN-3 asks whether time-consuming validation that prevents serious failures
+may be classified as noise. `evaluation/assurance.mjs` classifies each response
+on four independent flags: proposes a **live cut** to the control, proposes a
+**shadow** or historical comparison instead, **retains** the control
+explicitly, and **preserves** it — shadow with no live cut.
+
+| Version | n | shadow | live cut | retains | preserved |
+|---|---:|---:|---:|---:|---:|
+| v0.3.1 | 40 | 1 | 38 | 8 | 1 |
+| v0.3.2 | 40 | 2 | 22 | 15 | 1 |
+| v0.3.3-rc.2 | 40 | 35 | 9 | 39 | 29 |
+| v0.3.3-rc.3 | 30 | 25 | 11 | 26 | 16 |
+| v0.3.3-rc.4 | 20 | 15 | 7 | 14 | 10 |
+
+Against the pooled baselines, Fisher one-tailed: rc.4 shadow 15/20 vs 3/80,
+p = 4.2e-11; preserved 10/20 vs 2/80, p = 5.7e-07. This is the programme's one
+large, reproduced, unambiguous improvement, and it is intact in rc.4. A dip to
+6/10 in run C prompted the fresh-seed run D, which returned 9/10; the dip was
+noise at n = 10.
+
+The classifier was corrected during this work. Its guards read only leftwards,
+so a clause that keeps the safeguard in a trailing qualifier — "sampling ...
+without removing the protection", "test one targeted reduction while keeping
+serious-failure protection intact" — was scored as a proposal to cut. The fix
+was verified symmetric by re-scoring the earliest run, which reproduced its
+published numbers byte for byte; a scoring change that only helps the newest
+candidate is not a fix.
+
+### Negative control
+
+NC-3, the known configuration typo, drew an explicit non-activation in every
+response of every version in every run. None of these wording changes suppress
+numbers by suppressing the method.

@@ -161,14 +161,16 @@ Temporal proximity and correlation generate hypotheses; they do not prove causes
 Before recommending a material intervention, state what the model predicts:
 
 - which system outcome should change; local metrics are supporting signals;
-- direction of change against the currently observed value;
-- a proportional magnitude only when the supplied evidence contains the
-  baseline it is measured against, cited together with it;
-- otherwise the threshold or regime change expected, or direction alone. A
-  threshold is a level the system crosses or holds, such as a queue that stops
-  growing or a first-pass rate that returns above its recorded value; a bound
-  on the size of an improvement that has not been measured is a magnitude, not
-  a threshold;
+- write the prediction as the observable, the direction it moves, and the
+  window: "first-pass acceptance rises over two review cycles";
+- a number enters a prediction only by quoting one the supplied evidence
+  states, in the same sentence as its source: "reopen rate falls from the
+  recorded 18%". A figure the evidence does not contain does not appear at
+  all, in any form - not as a floor, a ceiling, a range, a target, or an
+  estimate, and not when labelled a direction or a threshold;
+- where a level is what matters, name the level the system crosses or holds in
+  its own terms: a queue that stops growing, a first-pass rate that returns
+  above its recorded value;
 - expected delay or observation window;
 - guardrails that should remain acceptable.
 
@@ -213,7 +215,7 @@ For a proposed experiment specify:
 - hypothesis;
 - smallest useful change, preferably testing whether a candidate constraint
   changes the system outcome;
-- expected result, as a direction against the current observed value;
+- expected result, written in the form the prediction step requires;
 - observation window;
 - primary system outcome;
 - guardrails;
@@ -299,9 +301,10 @@ Keep reports proportional. The outline below is optional. For an active case,
 even a short answer should retain a competing explanation, a distinguishing
 observation, and a bounded recommendation with prediction and guardrails.
 For a non-qualifying request, give direct help without this outline.
-Every prediction returned carries a direction and an observation window; a
-proportional magnitude or a duration promise appears only where the supplied
-evidence contains the measured value it is derived from, cited with it. Label
+Every prediction returned names an observable, a direction, and an observation
+window. Any figure inside a prediction or a duration promise is one the
+supplied evidence states, quoted alongside its source; a figure the evidence
+does not contain does not appear there however it is qualified. Label
 assumptions.
 Keep proposed changes conditional on evidence and applicable authorization.
 
