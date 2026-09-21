@@ -129,7 +129,7 @@ any version. Three of the nine cases account for every instance. The suite as
 currently seeded cannot resolve a change in this defect, so no version may
 claim an improvement in it. See `RETUNING_EVALUATION.md`.
 
-## Remediation validation — candidate v0.3.3-rc.7
+## Remediation validation — v0.3.3 (developed as candidate rc.7, released unchanged)
 
 **Version test status: PASSES.** Nine fixed cases, scored deterministically by
 regex over retained evidence rather than by model judges, which the rc.2 round

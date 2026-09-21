@@ -1,6 +1,6 @@
 # Changelog
 
-## v0.3.3-rc.7 — unreleased remediation candidate
+## v0.3.3 — 2026-09-21
 
 Removes the concrete figure from the Predict step's example. rc.6's one
 remaining flagged response read "reopen rate falls from the recorded 18%" on a
@@ -41,7 +41,8 @@ hypothetical 9/10, and proposes no instrumentation without stating the
 authorisation requirement. The historical TSN-4 over-activation did not
 reproduce in any version.
 
-Candidate validation passes. See [`VALIDATION.md`](VALIDATION.md).
+Candidate validation passed on all nine cases as rc.7; released unchanged
+as v0.3.3. See [`VALIDATION.md`](VALIDATION.md).
 
 ## v0.3.3-rc.6 — unreleased remediation candidate
 
