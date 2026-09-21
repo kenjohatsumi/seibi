@@ -11,7 +11,10 @@ import {execFileSync} from 'node:child_process';
 const root = path.resolve(process.argv[2] || '');
 if (!process.argv[2] || fs.existsSync(root)) throw Error('Supply a new explicit evidence directory');
 const generator = 'deepseek-v4-flash:cloud';
-const seeds = [20260927, 20260928, 20260929, 20260930, 20260931, 20260932, 20260933, 20260934, 20260935, 20260936];
+// Fixed by default so a run is reproducible; overridable because the generator is not
+// deterministic across runs even at temperature 0 with a fixed seed, so confirming a result
+// means re-running on fresh seeds rather than re-running the same ones.
+const seeds = (process.env.SEIBI_SEEDS || '20260927,20260928,20260929,20260930,20260931,20260932,20260933,20260934,20260935,20260936').split(',').map(Number);
 // TSN-1, TSN-2 and TSN-5 produce every observed unsupported numerical promise; TSN-3 carries the
 // assurance-preservation measure. NC-3 is retained as a cheap negative control so a wording change
 // that suppresses numbers by suppressing activation cannot pass unnoticed.

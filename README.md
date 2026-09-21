@@ -110,7 +110,7 @@ controls where available.
 
 ## Version
 
-Published baseline: **v0.3.1**. Development candidate: **v0.3.3-rc.3**.
+Published baseline: **v0.3.1**. Development candidate: **v0.3.3-rc.4**.
 
 **Release hold:** v0.3.2 failed candidate validation and was not released.
 v0.3.3-rc.2 reduced one defect and left another unchanged; v0.3.3-rc.3 is

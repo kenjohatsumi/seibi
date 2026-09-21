@@ -163,8 +163,12 @@ Before recommending a material intervention, state what the model predicts:
 - which system outcome should change; local metrics are supporting signals;
 - direction of change against the currently observed value;
 - a proportional magnitude only when the supplied evidence contains the
-  baseline it is measured against, cited together with it; otherwise give the
-  threshold or regime change expected, or direction alone;
+  baseline it is measured against, cited together with it;
+- otherwise the threshold or regime change expected, or direction alone. A
+  threshold is a level the system crosses or holds, such as a queue that stops
+  growing or a first-pass rate that returns above its recorded value; a bound
+  on the size of an improvement that has not been measured is a magnitude, not
+  a threshold;
 - expected delay or observation window;
 - guardrails that should remain acceptable.
 
@@ -327,7 +331,7 @@ The smallest justified next action. State whether it is read-only,
 recommended-only, or requires explicit authorization.
 
 ## Prediction and measurement
-Expected result, observation window, guardrails, stop conditions, and rollback.
+Expected direction, observation window, guardrails, stop conditions, and rollback.
 
 ## Confidence and open questions
 What is known, uncertain, and worth learning next?
