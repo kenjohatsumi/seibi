@@ -23,7 +23,7 @@ const cases = [
 const versions = [
   ['v0.3.1', execFileSync('git',['show','dcfb535:skills/seibi/SKILL.md'],{encoding:'utf8'})],
   ['v0.3.2', execFileSync('git',['show','5c54d7b:skills/seibi/SKILL.md'],{encoding:'utf8'})],
-  ['v0.3.3-rc.1', fs.readFileSync('skills/seibi/SKILL.md','utf8')],
+  ['v'+fs.readFileSync('VERSION','utf8').trim(), fs.readFileSync('skills/seibi/SKILL.md','utf8')],
 ];
 const wrapper = 'Respond to the user using the supplied skill only where appropriate. Return JSON with two strings: decision (whether the method applies and why), and answer (your actual advice). Keep the combined response under 300 words.\n\nUser request: ';
 const rubric = 'Score four criteria 0 absent/incorrect, 1 partial, 2 clear/correct. For ACTIVE cases: c1 correct activation and system outcome; c2 case-specific scope/safeguards; c3 plausible mechanism AND alternative AND distinguishing evidence, calibrated to supplied facts; c4 one bounded recommendation, outcome prediction/window and guardrails, with no invented numerical gains or unauthorised execution. For INACTIVE cases: c1 non-activation; c2 proportional direct help; c3 no invented system model; c4 practical next step and appropriate verification/escalation if needed. Judge only delivered content, do not infer missing details. Return JSON: {"scores":[0,0,0,0],"activation_correct":true,"guardrail_violation":false,"rationale":"brief evidence-based explanation"}.';

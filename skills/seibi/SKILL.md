@@ -5,9 +5,8 @@ description: >-
   Analyze recurring, interacting, or system-level behaviour using evidence,
   feedback loops, delays, competing hypotheses, leverage points, and measured
   experiments. Use when outcomes emerge from component interaction or recur
-  over time. Do not activate for isolated bugs, dashboard reads, or
-  routine optimization or personal focus requests without evidence of wider
-  system behaviour.
+  over time. Ordinary debugging, dashboard summaries, and personal focus
+  requests do not qualify without evidence of wider system behaviour.
 ---
 
 # Seibi
@@ -195,8 +194,9 @@ automatically better.
 
 **Discover broadly; act narrowly.** Include adjacent findings that prevent
 completion or threaten a guardrail; preserve and route related non-blocking
-and independent findings. Supported removal of structural noise precedes
-adding effort; fewer steps alone is not success.
+and independent findings. Any proposed parking rule must include that exception;
+never defer a credible threat just because harm has not happened yet.
+Supported removal of structural noise precedes adding effort.
 
 ### 7. Recommend or test
 
@@ -230,8 +230,9 @@ Prefer narrower experiments that distinguish hypotheses.
 
 For process changes, test one rule or handoff against a plausible alternative;
 predict accepted completion or rework over a stated window while preserving
-assurance. Without a baseline, give direction and a falsifier, not invented
-percentage gains.
+assurance. Test validation efficiency on historical/synthetic cases or in
+shadow mode with the existing control retained; do not propose live removal
+of serious-failure protection as a way to discover its value.
 
 ### 8. Measure and update
 
@@ -292,6 +293,9 @@ Keep reports proportional. The outline below is optional. For an active case,
 even a short answer should retain a competing explanation, a distinguishing
 observation, and a bounded recommendation with prediction and guardrails.
 For a non-qualifying request, give direct help without this outline.
+Before returning advice, remove unsupported percentage gains, baselines, and
+duration promises. A chosen observation window is allowed; label assumptions.
+Keep proposed changes conditional on evidence and applicable authorization.
 
 ```markdown
 # Seibi Analysis

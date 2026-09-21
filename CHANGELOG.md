@@ -1,5 +1,20 @@
 # Changelog
 
+## v0.3.3-rc.2 — unreleased remediation candidate
+
+Follow-up to rc.1 testing: require a guardrail exception in proposed parking
+rules, retain serious-failure controls during efficiency experiments, and
+check final advice for unsupported numerical promises. The evaluation harness
+now reads the candidate label from `VERSION` so the recorded version cannot
+drift from the source tested.
+
+Re-evaluation is complete. rc.2 passes all five frozen automated gate
+conditions and fails direct review of its own retained outputs: six
+release-blocking defects, and no measurable reduction in unsupported numerical
+promises against either baseline. The assurance-preservation change is
+supported; the unsupported-numeric change is not. Release hold remains in
+force. See `RETUNING_EVALUATION.md`.
+
 ## v0.3.3-rc.1 — unreleased remediation candidate
 
 Explicitly excludes ordinary personal focus requests from systems analysis;
