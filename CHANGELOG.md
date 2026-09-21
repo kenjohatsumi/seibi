@@ -23,10 +23,11 @@ context switching, and scope diversion.
 ### Tests
 Added five v0.3.2 forward-test cases covering repetitive review loops,
 adjacent discovery, necessary safety work, one-off focus problems, and
-repetitive operational workflows. A matched before/after run preserved 5/5
-activation fidelity and showed no observed guardrail regression; it remains
-instruction-level evidence, not independent deployment evidence. See
-[`RETUNING_EVALUATION.md`](RETUNING_EVALUATION.md).
+repetitive operational workflows. A two-judge quantified comparison scored
+v0.3.1 at 32.0/40 (80.0%) and v0.3.2 at 31.0/40 (77.5%); it does not support
+claiming a performance improvement. TSN-4, the one-off focus negative control,
+failed in both versions through over-activation and remains an open boundary
+defect. See [`RETUNING_EVALUATION.md`](RETUNING_EVALUATION.md).
 
 ## v0.3.1 — 2026-09-18
 

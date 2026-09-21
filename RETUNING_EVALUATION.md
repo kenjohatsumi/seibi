@@ -136,43 +136,56 @@ These results support closing the defect only after the fix is published and
 the forward containment check is retained. They do not establish production
 effectiveness or justify claiming a broad optimisation or cost improvement.
 
-## v0.3.1 → v0.3.2 task signal-to-noise evaluation
+## v0.3.1 → v0.3.2 task signal-to-noise quantified evaluation
 
-This paired forward test evaluated the task signal-to-noise integration from
-the v0.3.2 brief. Five fixed scenarios were run against both `SKILL.md`
-versions, one version per fresh request, using the same `glm-5.3-flash:cloud`
-model, temperature 0, seed `20260921`, and a 700-token generation ceiling.
-The compact prompt required the same four decision areas from each run:
-activation, outcome/guardrails, structure/competing hypothesis, and smallest
-intervention/prediction. The runs were read for behavioural outcomes, not
-scored as production evidence.
+Five fixed TSN scenarios were run against both `SKILL.md` versions, one
+version per fresh request. Candidate responses used the same
+`deepseek-v4-flash:cloud` model, temperature 0, seed `20260925`, JSON response
+format, and 500-token ceiling. Two blinded judges (`kimi-k3` and `glm-5.2`)
+scored each response independently using four case-specific criteria, each
+scored 0–2: activation/boundary, signal/guardrail handling, structural causal
+reasoning, and bounded intervention/prediction. The maximum was 40 points per
+version. This is a forward quality test, not production evidence.
 
-| Case | v0.3.1 before | v0.3.2 after | Observed change |
-|---|---|---|---|
-| TSN-1 review loop | Activated; identified ambiguous requirements, review feedback, and the risk of reducing a guardrail | Activated; explicitly classified review churn as low-SNR rework and named acceptance criteria, authority, and delayed feedback as sources | More direct task-SNR and guardrail framing; same causal direction |
-| TSN-2 adjacent discovery | Activated; identified attention diversion, a missing parking path, and the need to preserve B findings | Activated; explicitly applied **Discover broadly; act narrowly**, classified blocking scope expansion, and proposed capture/classify/route | Clearer scope-routing rule and falsifiable guardrails |
-| TSN-3 necessary validation | Activated; treated validation as protective work and considered cheaper assurance | Activated; explicitly distinguished guardrail work from noise and rejected deliverable-only classification | No safety regression; sharper task-relative definition |
-| TSN-4 one-off focus | Correctly did not activate Seibi; gave a direct local rationale | Correctly did not activate Seibi; retained the same negative control | No activation regression |
-| TSN-5 operational workflow | Activated; modelled handoff/re-entry rework and proposed a shared record or checklist | Activated; retained the same model and explicitly identified duplicated work, delayed feedback, and WIP as low-SNR mechanisms | More explicit process-friction lens; same bounded intervention family |
+### Quality results
 
-### Paired observations
+| Case | v0.3.1 before | v0.3.2 after | Change |
+|---|---:|---:|---:|
+| TSN-1 review loop | 8.0/8 | 7.0/8 | -1.0 |
+| TSN-2 adjacent discovery | 7.5/8 | 8.0/8 | +0.5 |
+| TSN-3 necessary validation | 8.0/8 | 7.5/8 | -0.5 |
+| TSN-4 one-off focus | 0.5/8 | 0.5/8 | 0.0 |
+| TSN-5 operational workflow | 8.0/8 | 8.0/8 | 0.0 |
+| **Aggregate** | **32.0/40 (80.0%)** | **31.0/40 (77.5%)** | **-1.0 (-2.5 pp)** |
 
-- Activation fidelity: **5/5 correct before, 5/5 correct after**. TSN-4
-  remained a negative control.
-- Guardrail protection: present in both versions for the validation and review
-  cases; v0.3.2 made the rule explicit rather than relying only on general
-  system-outcome reasoning.
-- Scope discipline: both versions preserved useful adjacent findings in TSN-2;
-  v0.3.2 made the blocking versus non-blocking routing rule explicit.
-- Structural reasoning: both versions identified plausible feedback, delay,
-  rework, or attention-allocation mechanisms. The retune improved vocabulary
-  and classification more than it changed the underlying causal conclusions.
+The TSN-4 negative control failed in both versions: the candidate responses
+over-activated full Seibi for the ordinary focus request. This is an unresolved
+activation-boundary defect, not evidence of a v0.3.2 regression. v0.3.2 improved
+the adjacent-discovery case, while the small losses on TSN-1 and TSN-3 reflect
+less complete responses under this run's compact output constraint.
 
-### Limits
+### Inference metrics
 
-This is a small paired forward test, not a statistically powered study. The
-model sometimes repeated instruction text and some outputs reached the token
-ceiling; no independent judge scored the full outputs. The results support the
-claim that v0.3.2 changes the intended reasoning emphasis without an observed
-activation or guardrail regression in these cases. They do not establish
-production effectiveness, lower cost, or general task-management performance.
+These are measurements from the ten candidate-generation calls, not dollar
+costs:
+
+| Metric | v0.3.1 | v0.3.2 | Change |
+|---|---:|---:|---:|
+| Prompt tokens | 13,336 | 15,136 | +1,800 (+13.5%) |
+| Generated tokens | 878 | 757 | -121 (-13.8%) |
+| Total tokens | 14,214 | 15,893 | +1,679 (+11.8%) |
+| Wall-clock generation time | 23.4 s | 31.9 s | +8.5 s (+36.4%) |
+
+The prompt increase is expected from the larger v0.3.2 skill text. No token or
+latency improvement was observed in this pass.
+
+### Limits and status
+
+This is a small two-judge forward test, not a statistically powered study.
+Judge agreement was not perfect, and model output quality is sensitive to the
+response format and token ceiling. The result does **not** support claiming a
+quantified performance improvement for v0.3.2. It supports one positive result
+(stronger adjacent-discovery handling), two neutral results, small mixed shifts
+on two target cases, and an unresolved negative-control failure in both
+versions. The earlier unscored free-form pass is superseded by this clean,
+blinded JSON-scored run.
